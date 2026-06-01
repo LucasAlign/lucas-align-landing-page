@@ -9,6 +9,8 @@ import {
   Settings
 } from "lucide-react";
 import { useState, useEffect } from "react";
+import logoMark from "@assets/lucas-align-logo-mark.png";
+import logoFull from "@assets/lucas-align-logo.png";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,11 +37,8 @@ export default function Home() {
       {/* Navigation */}
       <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm py-3' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
-          <button type="button" aria-label="Lucas Align home" className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
-              <div className="w-3 h-3 bg-white rounded-sm rotate-45"></div>
-            </div>
-            <span className="font-bold text-xl tracking-tight text-gray-900">Lucas Align</span>
+          <button type="button" aria-label="Lucas Align home" className="flex items-center cursor-pointer" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>
+            <img src={logoMark} alt="" className="h-9 w-auto" />
           </button>
 
           {/* Desktop Nav */}
@@ -257,8 +256,8 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="bg-gray-50 border-t border-gray-200 py-12">
         <div className="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <div className="font-bold text-xl text-gray-900 mb-2">Lucas Align</div>
+          <div className="flex flex-col items-center md:items-start">
+            <img src={logoFull} alt="Lucas Align" className="h-14 w-auto mb-3" />
             <p className="text-sm text-gray-500">Technology that aligns people, processes, and purpose.</p>
           </div>
           
