@@ -1,18 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { HeroVisual } from "@/components/dashboard-mockups";
 import { 
-  ArrowRight, 
-  CheckCircle2, 
   Heart, 
   Lightbulb, 
   Sparkles, 
-  Zap,
-  Users,
-  BrainCircuit,
   Menu,
   X,
-  BookOpen,
   Settings
 } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -51,8 +44,7 @@ export default function Home() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollTo('products')} className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Solutions</button>
-            <button onClick={() => scrollTo('why-us')} className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Why Us</button>
+            <button onClick={() => scrollTo('why-us')} className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">About</button>
             <button onClick={() => scrollTo('process')} className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Process</button>
             <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 shadow-sm shadow-blue-200">
               Schedule a Demo
@@ -68,8 +60,7 @@ export default function Home() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-lg py-4 px-6 flex flex-col gap-4 md:hidden">
-            <button onClick={() => scrollTo('products')} className="text-left text-base font-medium text-gray-800 py-2 border-b border-gray-50">Solutions</button>
-            <button onClick={() => scrollTo('why-us')} className="text-left text-base font-medium text-gray-800 py-2 border-b border-gray-50">Why Us</button>
+            <button onClick={() => scrollTo('why-us')} className="text-left text-base font-medium text-gray-800 py-2 border-b border-gray-50">About</button>
             <button onClick={() => scrollTo('process')} className="text-left text-base font-medium text-gray-800 py-2 border-b border-gray-50">Process</button>
             <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full rounded-full mt-2">
               Schedule a Demo
@@ -106,14 +97,39 @@ export default function Home() {
                   <Button className="h-12 px-8 text-base bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-200/50">
                     Schedule a Demo
                   </Button>
-                  <Button variant="outline" className="h-12 px-8 text-base border-gray-200 text-gray-700 hover:bg-gray-50 rounded-full" onClick={() => scrollTo('products')}>
-                    Explore Our Solutions
+                  <Button variant="outline" className="h-12 px-8 text-base border-gray-200 text-gray-700 hover:bg-gray-50 rounded-full" onClick={() => scrollTo('why-us')}>
+                    Learn More
                   </Button>
                 </div>
               </motion.div>
               
               <div className="relative lg:h-[600px] w-full hidden md:block">
-                <HeroVisual />
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="absolute w-72 h-72 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 blur-2xl opacity-70"></div>
+                  <div className="relative grid grid-cols-1 gap-6 w-full max-w-md">
+                    {[
+                      { icon: Heart, title: "People", desc: "Built around the humans you serve." },
+                      { icon: Settings, title: "Processes", desc: "Streamlined to fit how you work." },
+                      { icon: Lightbulb, title: "Purpose", desc: "Aligned with your mission." },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3 + i * 0.15 }}
+                        className={`flex items-center gap-4 p-5 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-blue-900/5 ${i === 1 ? 'md:translate-x-8' : ''}`}
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                          <item.icon className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-gray-900">{item.title}</div>
+                          <div className="text-sm text-gray-500">{item.desc}</div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -134,141 +150,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PRODUCTS SECTION */}
-        <section id="products" className="py-24 md:py-32 bg-white">
-          <div className="container mx-auto px-6 max-w-6xl">
-            <div className="mb-16 md:mb-24">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900 mb-4">Our Solutions</h2>
-              <p className="text-lg text-gray-600 max-w-2xl">Purpose-built platforms for specific missions, alongside custom development for unique challenges.</p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Wraparound */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="group relative p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <Users className="w-32 h-32 text-blue-600" />
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-6">
-                  <Users className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Wraparound</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">Engineered support for foster, adoptive, and kinship families.</p>
-                <ul className="space-y-3 mb-8">
-                  {['Care Community Management', 'Volunteer Coordination', 'Family Support Tracking', 'County-Level Oversight'].map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="link" className="p-0 h-auto text-blue-600 font-semibold group/btn">
-                  Learn More <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
-              </motion.div>
-
-              {/* GrantFlow */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="group relative p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl hover:shadow-emerald-900/5 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <BrainCircuit className="w-32 h-32 text-emerald-600" />
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-6">
-                  <BrainCircuit className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">GrantFlow</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">AI-powered grant writing assistant for mission-driven organizations.</p>
-                <ul className="space-y-3 mb-8">
-                  {['Smart Application Assistance', 'Organizational Knowledge Base', 'Autofill Repetitive Questions', 'Funding Opportunity Alerts'].map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="link" className="p-0 h-auto text-emerald-600 font-semibold group/btn">
-                  Learn More <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
-              </motion.div>
-
-              {/* AnchorOne */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="group relative p-8 rounded-3xl bg-gray-50 border border-gray-100 hover:shadow-xl hover:shadow-indigo-900/5 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <BookOpen className="w-32 h-32 text-indigo-600" />
-                </div>
-                <div className="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-6">
-                  <BookOpen className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">AnchorOne</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">The homeschool command center for organized, effective learning.</p>
-                <ul className="space-y-3 mb-8">
-                  {['Curriculum Management', 'Student Dashboards', 'AI-Assisted Grading', 'Daily Learning Plans'].map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-indigo-500 flex-shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="link" className="p-0 h-auto text-indigo-600 font-semibold group/btn">
-                  Learn More <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
-              </motion.div>
-
-              {/* Custom AI Solutions */}
-              <motion.div 
-                whileHover={{ y: -5 }}
-                className="group relative p-8 rounded-3xl bg-gray-900 text-white shadow-xl overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-transparent pointer-events-none"></div>
-                <div className="absolute top-0 right-0 p-8 opacity-10">
-                  <Zap className="w-32 h-32 text-white" />
-                </div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center mb-6 backdrop-blur-sm">
-                    <Zap className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">Custom AI Solutions</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">Need something unique? We develop custom web applications, dashboards, and automations tailored to your organization.</p>
-                  <ul className="space-y-3 mb-8">
-                    {['Workflow Automation', 'CRM Integrations', 'Custom Dashboards', 'Reporting Systems'].map((f, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
-                        <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="bg-white text-gray-900 hover:bg-gray-100 rounded-full group/btn border-0 shadow-lg">
-                    Let's Build It <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
         {/* STATISTICS */}
         <section className="py-20 bg-blue-600 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjE1KSIvPjwvc3ZnPg==')] opacity-50"></div>
           <div className="container mx-auto px-6 max-w-6xl relative z-10">
             <div className="grid md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-blue-500/50">
               <div className="py-6 md:py-0 px-4">
-                <div className="text-5xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">1000+</div>
-                <div className="text-blue-100 font-medium tracking-wide">Potential Care Communities Supported</div>
+                <div className="text-5xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">100%</div>
+                <div className="text-blue-100 font-medium tracking-wide">Custom Solutions Around Your Mission</div>
               </div>
               <div className="py-6 md:py-0 px-4">
                 <div className="text-5xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">100+</div>
                 <div className="text-blue-100 font-medium tracking-wide">Hours Saved Per Month</div>
               </div>
               <div className="py-6 md:py-0 px-4">
-                <div className="text-5xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">100%</div>
-                <div className="text-blue-100 font-medium tracking-wide">Custom Solutions Around Your Mission</div>
+                <div className="text-5xl md:text-6xl font-bold mb-4 tracking-tight text-white drop-shadow-md">1:1</div>
+                <div className="text-blue-100 font-medium tracking-wide">Partnership With Every Organization</div>
               </div>
             </div>
           </div>
@@ -338,32 +235,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TESTIMONIAL */}
-        <section className="py-24 bg-gray-900 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl"></div>
-          
-          <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
-            <div className="mb-8 opacity-20">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="mx-auto">
-                <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" />
-              </svg>
-            </div>
-            <p className="text-2xl md:text-4xl font-medium leading-relaxed mb-10 text-gray-100">
-              "Lucas Align understands both technology and people. Their solutions simplify complex processes and allow us to focus on serving families."
-            </p>
-            <div className="inline-flex items-center gap-4 text-left">
-              <div className="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center border border-gray-700">
-                <span className="text-gray-400 font-medium">NL</span>
-              </div>
-              <div>
-                <div className="font-bold text-white">Nonprofit Leader</div>
-                <div className="text-sm text-gray-400">Community Partner</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* FINAL CTA */}
         <section className="py-24 md:py-32 bg-white">
           <div className="container mx-auto px-6 max-w-4xl text-center">
@@ -393,9 +264,8 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center gap-6 text-sm font-medium text-gray-600">
             <button onClick={() => window.scrollTo({top:0, behavior:'smooth'})} className="hover:text-blue-600 transition-colors">Home</button>
-            <button className="hover:text-blue-600 transition-colors">Wraparound</button>
-            <button className="hover:text-blue-600 transition-colors">GrantFlow</button>
-            <button className="hover:text-blue-600 transition-colors">AnchorOne</button>
+            <button onClick={() => scrollTo('why-us')} className="hover:text-blue-600 transition-colors">About</button>
+            <button onClick={() => scrollTo('process')} className="hover:text-blue-600 transition-colors">Process</button>
             <button className="hover:text-blue-600 transition-colors">Contact</button>
           </div>
           
