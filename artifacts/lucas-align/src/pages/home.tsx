@@ -80,6 +80,10 @@ export default function Home() {
     setMobileMenuOpen(false);
   };
 
+  const goToWraparound = () => {
+    window.location.href = "/wraparound";
+  };
+
   return (
     <div className="min-h-[100dvh] bg-[#f6f1e8] text-[#17211d] font-sans selection:bg-[#d9ead7] selection:text-[#17211d] flex flex-col">
       <header
@@ -109,6 +113,13 @@ export default function Home() {
             <button onClick={() => scrollTo("process")} className="text-sm font-semibold text-[#48554d] hover:text-[#a1492b] transition-colors">
               Process
             </button>
+            <Button
+              variant="outline"
+              className="border-[#bfaa89] bg-[#fff8ed]/60 text-[#26332e] hover:bg-[#fff8ed] rounded-full px-5"
+              onClick={goToWraparound}
+            >
+              Wraparound
+            </Button>
             <Button className="bg-[#17211d] hover:bg-[#26332e] text-[#fff8ed] rounded-full px-6 shadow-sm">
               Start a Conversation
             </Button>
@@ -136,6 +147,13 @@ export default function Home() {
             <button onClick={() => scrollTo("process")} className="text-left text-base font-semibold text-[#26332e] py-2 border-b border-[#dfd2bd]">
               Process
             </button>
+            <Button
+              variant="outline"
+              className="border-[#bfaa89] bg-[#fff8ed]/60 text-[#26332e] hover:bg-[#fff8ed] w-full rounded-full mt-2"
+              onClick={goToWraparound}
+            >
+              View Wraparound
+            </Button>
             <Button className="bg-[#17211d] hover:bg-[#26332e] text-[#fff8ed] w-full rounded-full mt-2">
               Start a Conversation
             </Button>
@@ -174,9 +192,9 @@ export default function Home() {
                   <Button
                     variant="outline"
                     className="h-12 px-7 text-base border-[#bfaa89] bg-[#fff8ed]/60 text-[#26332e] hover:bg-[#fff8ed] rounded-full"
-                    onClick={() => scrollTo("services")}
+                    onClick={goToWraparound}
                   >
-                    See What We Build
+                    View Wraparound
                   </Button>
                 </div>
               </motion.div>
@@ -383,6 +401,9 @@ export default function Home() {
             </button>
             <button onClick={() => scrollTo("process")} className="hover:text-[#a1492b] transition-colors">
               Process
+            </button>
+            <button onClick={goToWraparound} className="hover:text-[#a1492b] transition-colors">
+              Wraparound
             </button>
           </div>
 
