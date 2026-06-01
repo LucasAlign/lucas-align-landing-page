@@ -5,6 +5,7 @@ import {
   CalendarDays,
   CheckCircle2,
   ClipboardList,
+  Database,
   HeartHandshake,
   Home,
   LockKeyhole,
@@ -12,8 +13,13 @@ import {
   MapPinned,
   Menu,
   MessageSquareText,
+  Network,
+  PackageCheck,
+  Repeat,
   ShieldCheck,
+  TableProperties,
   Users,
+  UserCheck,
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -21,50 +27,89 @@ import { useEffect, useState } from "react";
 const features = [
   {
     icon: Home,
-    title: "Family Management",
-    description: "Maintain a central record for every family being served.",
-    items: ["Family profiles", "Contact information", "Support history", "Status tracking", "Notes and updates"],
+    title: "Care Circle Dashboard",
+    description: "Give each family a live command center for practical support.",
+    items: ["Upcoming schedule items", "Open needs", "Recent posts", "Key support stats", "Care circle activity"],
   },
   {
-    icon: HeartHandshake,
-    title: "Care Community Coordination",
-    description: "Organize Care Communities from formation through launch and ongoing support.",
-    items: ["Team assignments", "Team Lead management", "Volunteer oversight", "Community status tracking"],
-  },
-  {
-    icon: Users,
-    title: "Volunteer Management",
-    description: "Give volunteers a clear view of their responsibilities.",
-    items: ["Task assignments", "Recurring commitments", "Automated reminders", "Volunteer dashboards"],
+    icon: ClipboardList,
+    title: "Needs Board",
+    description: "Turn every meal, ride, errand, yardwork request, or prayer need into clear action.",
+    items: ["Open need listings", "Volunteer claiming", "Support type tracking", "Automatic closeout", "Assigned family scope"],
   },
   {
     icon: CalendarDays,
-    title: "Scheduling & Calendar",
-    description: "Coordinate meals, childcare, transportation, and practical support.",
-    items: ["Shared calendars", "Recurring schedules", "Assignment tracking", "Upcoming commitments"],
+    title: "Schedule & Recurring Support",
+    description: "Coordinate support visits once, then let recurring rules keep the rhythm moving.",
+    items: ["Weekly calendar", "Recurring meals", "Monthly meetings", "Transportation support", "Upcoming commitments"],
   },
   {
     icon: MessageSquareText,
-    title: "Communication Tools",
-    description: "Keep everyone informed without endless email chains.",
-    items: ["Team updates", "Internal notes", "Family communication tracking", "Automated notifications"],
+    title: "Community Feed",
+    description: "Keep each family's care circle connected to updates, prayer requests, and celebrations.",
+    items: ["Announcements", "Family updates", "Comments", "Reactions", "Need-related posts"],
+  },
+  {
+    icon: Users,
+    title: "Volunteer Directory",
+    description: "Search active volunteers and understand how each person is equipped to help.",
+    items: ["Support specialties", "Childcare approval", "Availability", "Volunteer profiles", "Awaiting activation"],
+  },
+  {
+    icon: UserCheck,
+    title: "Training Pipeline",
+    description: "Move recruits from invite to registration, training completion, and activation.",
+    items: ["Secure invite links", "Training modules", "Progress matrix", "Automatic promotion", "Admin activation"],
+  },
+  {
+    icon: MessageSquareText,
+    title: "Messaging & Notifications",
+    description: "Keep direct and group communication organized inside the platform.",
+    items: ["Family chat threads", "Direct messaging", "Group threads", "Need activity alerts", "Schedule change alerts"],
   },
   {
     icon: MapPinned,
-    title: "County & Church Visibility",
-    description: "Provide the right level of access for every role.",
-    items: ["County-wide oversight", "Church-specific views", "Team Lead controls", "Volunteer-relevant access"],
+    title: "Admin & Reporting",
+    description: "Give coordinators the visibility they need across counties, churches, and communities.",
+    items: ["County analytics", "Master list views", "CSV import", "Audit log", "Reference tables"],
   },
 ];
 
 const roleViews = [
-  "County Coordinators oversee county-wide activity.",
-  "Church Advocates view their church's Care Communities.",
-  "Team Leads manage their individual teams.",
-  "Volunteers see only information relevant to their assignments.",
+  {
+    title: "Families",
+    detail: "Foster, adoptive, kinship, and vulnerable families receive coordinated support from a dedicated care circle.",
+  },
+  {
+    title: "Volunteers",
+    detail: "Trained church volunteers claim meals, rides, childcare, errands, prayer needs, and other direct support.",
+  },
+  {
+    title: "Lead Volunteers",
+    detail: "Experienced volunteers coordinate day-to-day follow-through within a family's care circle.",
+  },
+  {
+    title: "Church Advocates",
+    detail: "Church representatives recruit, encourage, and support volunteers from their congregation.",
+  },
+  {
+    title: "County Coordinators & Central Admins",
+    detail: "Nonprofit staff manage communities, families, volunteers, churches, permissions, and reporting.",
+  },
 ];
 
-const workflowItems = ["Track families", "Coordinate volunteers", "Manage schedules", "Communicate with teams", "Measure impact"];
+const workflowItems = ["Invite", "Register", "Train", "Activate", "Assign", "Support", "Report", "Improve"];
+
+const supportTypes = ["Meals", "Transportation", "Babysitting", "Errands", "Yardwork", "Prayer", "Celebrations", "Meetings"];
+
+const techStack = [
+  ["Frontend", "React, Vite, TypeScript"],
+  ["API", "Express 5 and AWS API Gateway"],
+  ["Auth", "AWS Cognito with PKCE flow"],
+  ["Database", "PostgreSQL with Drizzle ORM"],
+  ["Validation", "Zod"],
+  ["API Layer", "OpenAPI with Orval React Query codegen"],
+];
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -108,6 +153,9 @@ export default function HomePage() {
             <button onClick={() => scrollTo("workflow")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
               Workflow
             </button>
+            <button onClick={() => scrollTo("roles")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
+              Roles
+            </button>
             <button onClick={() => scrollTo("features")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
               Features
             </button>
@@ -134,6 +182,7 @@ export default function HomePage() {
           <div className="absolute left-0 top-full flex w-full flex-col gap-2 border-b border-[#dce5dd] bg-[#f8faf7] px-5 py-4 shadow-lg md:hidden">
             {[
               ["Workflow", "workflow"],
+              ["Roles", "roles"],
               ["Features", "features"],
               ["Security", "security"],
             ].map(([label, id]) => (
@@ -159,9 +208,12 @@ export default function HomePage() {
               <h1 className="mb-6 text-4xl font-bold leading-[1.04] tracking-tight text-[#13201b] md:text-6xl">
                 Coordinate care around families from one platform.
               </h1>
-              <p className="mb-8 max-w-2xl text-lg leading-relaxed text-[#43554e] md:text-xl">
+              <p className="mb-5 max-w-2xl text-lg leading-relaxed text-[#43554e] md:text-xl">
                 Wraparound helps organizations coordinate Care Communities, volunteers, advocates, and families from a single platform built for foster,
                 adoptive, kinship, and vulnerable family support.
+              </p>
+              <p className="mb-8 max-w-2xl text-base font-semibold leading-relaxed text-[#263a33]">
+                No family walks alone. Every family gets a dedicated care circle, every need gets a volunteer, and every supporter stays informed.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button className="h-12 rounded-md bg-[#1f6f5b] px-7 text-base text-white hover:bg-[#185846]" onClick={() => scrollTo("demo")}>
@@ -244,10 +296,10 @@ export default function HomePage() {
           <div className="container mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Built Around How Care Communities Actually Work</p>
-              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Replace disconnected systems with one shared operating view.</h2>
+              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Turn the intention to help into organized, trackable action.</h2>
               <p className="text-lg leading-relaxed text-[#52645d]">
                 Most organizations manage Care Communities using spreadsheets, emails, text messages, shared calendars, and multiple disconnected systems.
-                Wraparound brings everything together without adding administrative burden.
+                Wraparound brings the full support rhythm together without adding administrative burden.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -256,6 +308,26 @@ export default function HomePage() {
                   <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[#1f6f5b]" />
                   <span className="font-semibold text-[#263a33]">{item}</span>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="roles" className="bg-[#f8faf7] py-16 md:py-24">
+          <div className="container mx-auto max-w-7xl px-5 sm:px-6">
+            <div className="mb-12 max-w-3xl">
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Who It Serves</p>
+              <h2 className="text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Five roles, one coordinated care network.</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+              {roleViews.map((role) => (
+                <article key={role.title} className="rounded-lg border border-[#dce5dd] bg-white p-5 shadow-sm">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-[#dff2e8] text-[#1f6f5b]">
+                    <Users className="h-5 w-5" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-bold text-[#13201b]">{role.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#52645d]">{role.detail}</p>
+                </article>
               ))}
             </div>
           </div>
@@ -298,19 +370,58 @@ export default function HomePage() {
                 Wraparound was built with input from organizations actively supporting foster, adoptive, kinship, and vulnerable families. Whether serving one
                 family or hundreds, it provides a structured system for managing relationships, volunteers, and ongoing care.
               </p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {supportTypes.map((type) => (
+                  <span key={type} className="rounded-md border border-[#bdd7ca] bg-[#f8faf7] px-3 py-2 text-sm font-bold text-[#1f6f5b]">
+                    {type}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-6">
               <div className="mb-5 flex items-center gap-3">
-                <ClipboardList className="h-6 w-6 text-[#1f6f5b]" />
-                <h3 className="text-xl font-bold text-[#13201b]">Role-Based Visibility</h3>
+                <Network className="h-6 w-6 text-[#1f6f5b]" />
+                <h3 className="text-xl font-bold text-[#13201b]">Care Circle Flow</h3>
               </div>
               <div className="space-y-3">
-                {roleViews.map((role) => (
-                  <div key={role} className="rounded-md border border-[#dce5dd] bg-white p-4 font-medium text-[#43554e]">
-                    {role}
+                {[
+                  "Families share context, preferences, and practical needs.",
+                  "Lead Volunteers keep support organized around the family.",
+                  "Volunteers claim needs and receive schedule updates.",
+                  "Church Advocates and coordinators monitor health across care circles.",
+                ].map((item) => (
+                  <div key={item} className="rounded-md border border-[#dce5dd] bg-white p-4 font-medium text-[#43554e]">
+                    {item}
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f2f7f3] py-16 md:py-24">
+          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Training & Administration</p>
+              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">A complete path from recruit to active volunteer.</h2>
+              <p className="text-lg leading-relaxed text-[#52645d]">
+                Admins generate secure invite links, trainees register and complete required modules, and finished trainees move into an awaiting activation
+                queue before becoming active volunteers.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                [PackageCheck, "Module Library", "Manage videos, articles, PDFs, links, and required training resources."],
+                [TableProperties, "Progress Matrix", "See completion status for every trainee across every module."],
+                [UserCheck, "Awaiting Activation", "Review trainees who finished training and activate them from the Volunteers page."],
+                [Repeat, "Reference Management", "Maintain support types, volunteer roles, statuses, and other shared tables."],
+              ].map(([Icon, title, detail]) => (
+                <article key={String(title)} className="rounded-lg border border-[#dce5dd] bg-white p-6 shadow-sm">
+                  <Icon className="mb-5 h-6 w-6 text-[#1f6f5b]" />
+                  <h3 className="mb-2 text-xl font-bold text-[#13201b]">{title}</h3>
+                  <p className="leading-relaxed text-[#52645d]">{detail}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -346,6 +457,27 @@ export default function HomePage() {
               Wraparound provides one place to coordinate people, schedules, communication, and care. Simple enough for volunteers. Powerful enough for
               coordinators. Built specifically for Care Communities.
             </p>
+          </div>
+        </section>
+
+        <section className="bg-white py-16 md:py-24">
+          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+            <div>
+              <Database className="mb-6 h-10 w-10 text-[#1f6f5b]" />
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Technology</p>
+              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Built on a modern, type-safe stack.</h2>
+              <p className="text-lg leading-relaxed text-[#52645d]">
+                Wraparound is engineered for maintainable product growth, reliable data workflows, and strongly typed API integration from database to React.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {techStack.map(([label, value]) => (
+                <div key={label} className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-5">
+                  <p className="mb-2 text-sm font-bold uppercase tracking-[0.14em] text-[#1f6f5b]">{label}</p>
+                  <p className="font-semibold text-[#263a33]">{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
