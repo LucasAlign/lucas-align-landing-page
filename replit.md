@@ -1,6 +1,6 @@
-# [Project name]
+# Lucas Align
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A premium single-page marketing landing page for Lucas Align — a company that builds custom software and AI-powered tools for nonprofits, churches, foster care organizations, homeschool families, and mission-driven businesses.
 
 ## Run & Operate
 
