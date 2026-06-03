@@ -24,6 +24,7 @@ import { type FormEvent, useEffect, useState } from "react";
 import aboutImage from "@assets/lucas-brothers-about.webp";
 import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
+import { useCreateContact } from "@workspace/api-client-react";
 
 const products = [
   {
@@ -71,6 +72,8 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const createContact = useCreateContact();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -92,34 +95,26 @@ export default function Home() {
 
   const startConversation = () => {
     setContactOpen(true);
+    setSubmitted(false);
     setMobileMenuOpen(false);
   };
 
   const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const form = new FormData(event.currentTarget);
-    const name = String(form.get("name") || "").trim();
-    const email = String(form.get("email") || "").trim();
-    const organization = String(form.get("organization") || "").trim();
-    const projectType = String(form.get("projectType") || "").trim();
-    const message = String(form.get("message") || "").trim();
-
-    const subject = encodeURIComponent("Lucas Align conversation request from " + (name || "the website"));
-    const body = encodeURIComponent(
-      [
-        "Name: " + name,
-        "Email: " + email,
-        "Organization: " + (organization || "Not provided"),
-        "Project area: " + (projectType || "Not provided"),
-        "",
-        "Message:",
-        message,
-      ].join("\n"),
+    createContact.mutate(
+      {
+        data: {
+          name: String(form.get("name") || "").trim(),
+          email: String(form.get("email") || "").trim(),
+          organization: String(form.get("organization") || "").trim() || null,
+          interest: String(form.get("projectType") || "").trim() || null,
+          message: String(form.get("message") || "").trim() || null,
+          source: "home",
+        },
+      },
+      { onSuccess: () => setSubmitted(true) },
     );
-
-    window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + subject + "&body=" + body;
-    setContactOpen(false);
   };
 
   return (
@@ -421,86 +416,104 @@ export default function Home() {
         </section>
       </main>
 
-      <Dialog open={contactOpen} onOpenChange={setContactOpen}>
+      <Dialog open={contactOpen} onOpenChange={(open) => { setContactOpen(open); if (!open) setSubmitted(false); }}>
         <DialogContent className="max-h-[92dvh] overflow-y-auto rounded-[1.5rem] border-[#d8d1c4] bg-[#f7f5f0] p-6 shadow-2xl sm:max-w-xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold tracking-tight text-[#16243a]">Start a conversation</DialogTitle>
-            <DialogDescription className="text-[#516174]">
-              Tell us a little about the workflow or tool you have in mind. Submitting this form opens a prefilled email to Lucas Align.
-            </DialogDescription>
-          </DialogHeader>
+          {submitted ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold tracking-tight text-[#16243a]">Message received</DialogTitle>
+                <DialogDescription className="text-[#516174]">
+                  Thank you for reaching out. We'll be in touch soon.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-4 flex justify-end">
+                <Button className="rounded-full bg-[#17385f] px-6 text-white hover:bg-[#102a48]" onClick={() => setContactOpen(false)}>
+                  Close
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold tracking-tight text-[#16243a]">Start a conversation</DialogTitle>
+                <DialogDescription className="text-[#516174]">
+                  Tell us a little about the workflow or tool you have in mind.
+                </DialogDescription>
+              </DialogHeader>
 
-          <form className="mt-2 grid gap-4" onSubmit={handleContactSubmit}>
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-name">Name</label>
-              <input
-                id="contact-name"
-                name="name"
-                required
-                className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
-                autoComplete="name"
-              />
-            </div>
+              <form className="mt-2 grid gap-4" onSubmit={handleContactSubmit}>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-name">Name</label>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    required
+                    className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
+                    autoComplete="name"
+                  />
+                </div>
 
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-email">Email</label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                required
-                className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
-                autoComplete="email"
-              />
-            </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-email">Email</label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
+                    autoComplete="email"
+                  />
+                </div>
 
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-organization">Organization</label>
-              <input
-                id="contact-organization"
-                name="organization"
-                className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
-                autoComplete="organization"
-              />
-            </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-organization">Organization</label>
+                  <input
+                    id="contact-organization"
+                    name="organization"
+                    className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
+                    autoComplete="organization"
+                  />
+                </div>
 
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-project-type">Project area</label>
-              <select
-                id="contact-project-type"
-                name="projectType"
-                className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
-                defaultValue=""
-              >
-                <option value="" disabled>Select one</option>
-                <option>Wraparound</option>
-                <option>GrantFlow</option>
-                <option>Homeschool Dashboard</option>
-                <option>Custom workflow or tool</option>
-                <option>Not sure yet</option>
-              </select>
-            </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-project-type">Project area</label>
+                  <select
+                    id="contact-project-type"
+                    name="projectType"
+                    className="h-11 rounded-xl border border-[#cdd5dc] bg-white px-4 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Select one</option>
+                    <option>Wraparound</option>
+                    <option>GrantFlow</option>
+                    <option>Homeschool Dashboard</option>
+                    <option>Custom workflow or tool</option>
+                    <option>Not sure yet</option>
+                  </select>
+                </div>
 
-            <div className="grid gap-2">
-              <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-message">What needs a better system?</label>
-              <textarea
-                id="contact-message"
-                name="message"
-                required
-                rows={5}
-                className="resize-none rounded-xl border border-[#cdd5dc] bg-white px-4 py-3 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
-              />
-            </div>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#26384d]" htmlFor="contact-message">What needs a better system?</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    required
+                    rows={5}
+                    className="resize-none rounded-xl border border-[#cdd5dc] bg-white px-4 py-3 text-[#16243a] outline-none transition focus:border-[#17385f] focus:ring-2 focus:ring-[#17385f]/15"
+                  />
+                </div>
 
-            <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
-              <Button type="button" variant="outline" className="rounded-full border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]" onClick={() => setContactOpen(false)}>
-                Cancel
-              </Button>
-              <Button type="submit" className="rounded-full bg-[#17385f] px-6 text-white hover:bg-[#102a48]">
-                Email Lucas Align
-              </Button>
-            </div>
-          </form>
+                <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
+                  <Button type="button" variant="outline" className="rounded-full border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]" onClick={() => setContactOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={createContact.isPending} className="rounded-full bg-[#17385f] px-6 text-white hover:bg-[#102a48]">
+                    {createContact.isPending ? "Sending…" : "Send Message"}
+                  </Button>
+                </div>
+              </form>
+            </>
+          )}
         </DialogContent>
       </Dialog>
 

@@ -1,4 +1,11 @@
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -16,8 +23,9 @@ import {
   UserCheck,
   X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import bgBeach from "@assets/image_1780508810059.png";
+import { useCreateContact } from "@workspace/api-client-react";
 
 const features = [
   {
@@ -98,6 +106,9 @@ const supportTypes = ["Meals", "Transportation", "Childcare", "Errands", "Yardwo
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const createContact = useCreateContact();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 18);
@@ -108,6 +119,30 @@ export default function HomePage() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setMobileMenuOpen(false);
+  };
+
+  const openContact = () => {
+    setContactOpen(true);
+    setSubmitted(false);
+    setMobileMenuOpen(false);
+  };
+
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    createContact.mutate(
+      {
+        data: {
+          name: String(form.get("name") || "").trim(),
+          email: String(form.get("email") || "").trim(),
+          organization: String(form.get("organization") || "").trim() || null,
+          interest: "Wraparound",
+          message: String(form.get("message") || "").trim() || null,
+          source: "wraparound",
+        },
+      },
+      { onSuccess: () => setSubmitted(true) },
+    );
   };
 
   return (
@@ -156,7 +191,7 @@ export default function HomePage() {
             <button onClick={() => scrollTo("features")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
               Features
             </button>
-            <Button className="h-10 rounded-md bg-[#1f6f5b] px-5 text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+            <Button className="h-10 rounded-md bg-[#1f6f5b] px-5 text-white hover:bg-[#185846]" onClick={openContact}>
               Get in Touch
             </Button>
           </nav>
@@ -183,7 +218,7 @@ export default function HomePage() {
                 {label}
               </button>
             ))}
-            <Button className="mt-2 h-11 rounded-md bg-[#1f6f5b] text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+            <Button className="mt-2 h-11 rounded-md bg-[#1f6f5b] text-white hover:bg-[#185846]" onClick={openContact}>
               Get in Touch
             </Button>
           </div>
@@ -209,7 +244,7 @@ export default function HomePage() {
                 Every family gets a dedicated care circle. Every need gets a volunteer. Every supporter stays connected.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <Button className="h-12 rounded-md bg-[#1f6f5b] px-7 text-base text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+                <Button className="h-12 rounded-md bg-[#1f6f5b] px-7 text-base text-white hover:bg-[#185846]" onClick={openContact}>
                   Get in Touch
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -429,8 +464,8 @@ export default function HomePage() {
               If your organization is supporting foster, adoptive, kinship, or vulnerable families and you're looking for a better way to coordinate care, we'd love to connect.
             </p>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
-              <Button className="h-12 rounded-md bg-[#1f6f5b] px-8 text-base text-white hover:bg-[#185846]">Schedule a Conversation</Button>
-              <Button variant="outline" className="h-12 rounded-md border-[#a8bcb2] bg-white px-8 text-base text-[#263a33] hover:bg-[#f8faf7]">
+              <Button className="h-12 rounded-md bg-[#1f6f5b] px-8 text-base text-white hover:bg-[#185846]" onClick={openContact}>Schedule a Conversation</Button>
+              <Button variant="outline" className="h-12 rounded-md border-[#a8bcb2] bg-white px-8 text-base text-[#263a33] hover:bg-[#f8faf7]" onClick={openContact}>
                 Contact Us
               </Button>
             </div>
@@ -447,6 +482,89 @@ export default function HomePage() {
           <p>Software for Care Communities serving foster, adoptive, kinship, and vulnerable families.</p>
         </div>
       </footer>
+
+      <Dialog open={contactOpen} onOpenChange={(open) => { setContactOpen(open); if (!open) setSubmitted(false); }}>
+        <DialogContent className="max-h-[92dvh] overflow-y-auto rounded-[1.5rem] border-[#dce5dd] bg-[#f8faf7] p-6 shadow-2xl sm:max-w-xl">
+          {submitted ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold tracking-tight text-[#13201b]">Message received</DialogTitle>
+                <DialogDescription className="text-[#52645d]">
+                  Thank you for reaching out. We'll be in touch soon.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="mt-4 flex justify-end">
+                <Button className="rounded-md bg-[#1f6f5b] px-6 text-white hover:bg-[#185846]" onClick={() => setContactOpen(false)}>
+                  Close
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold tracking-tight text-[#13201b]">Get in touch</DialogTitle>
+                <DialogDescription className="text-[#52645d]">
+                  Tell us about your organization and how you're supporting families. We'd love to connect.
+                </DialogDescription>
+              </DialogHeader>
+
+              <form className="mt-2 grid gap-4" onSubmit={handleContactSubmit}>
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#263a33]" htmlFor="wrap-name">Name</label>
+                  <input
+                    id="wrap-name"
+                    name="name"
+                    required
+                    className="h-11 rounded-xl border border-[#c8d9ce] bg-white px-4 text-[#13201b] outline-none transition focus:border-[#1f6f5b] focus:ring-2 focus:ring-[#1f6f5b]/15"
+                    autoComplete="name"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#263a33]" htmlFor="wrap-email">Email</label>
+                  <input
+                    id="wrap-email"
+                    name="email"
+                    type="email"
+                    required
+                    className="h-11 rounded-xl border border-[#c8d9ce] bg-white px-4 text-[#13201b] outline-none transition focus:border-[#1f6f5b] focus:ring-2 focus:ring-[#1f6f5b]/15"
+                    autoComplete="email"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#263a33]" htmlFor="wrap-organization">Organization</label>
+                  <input
+                    id="wrap-organization"
+                    name="organization"
+                    className="h-11 rounded-xl border border-[#c8d9ce] bg-white px-4 text-[#13201b] outline-none transition focus:border-[#1f6f5b] focus:ring-2 focus:ring-[#1f6f5b]/15"
+                    autoComplete="organization"
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <label className="text-sm font-semibold text-[#263a33]" htmlFor="wrap-message">What does your care coordination look like today?</label>
+                  <textarea
+                    id="wrap-message"
+                    name="message"
+                    rows={4}
+                    className="resize-none rounded-xl border border-[#c8d9ce] bg-white px-4 py-3 text-[#13201b] outline-none transition focus:border-[#1f6f5b] focus:ring-2 focus:ring-[#1f6f5b]/15"
+                  />
+                </div>
+
+                <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
+                  <Button type="button" variant="outline" className="rounded-md border-[#a8bcb2] bg-white text-[#1f6f5b] hover:bg-[#f2f7f3]" onClick={() => setContactOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={createContact.isPending} className="rounded-md bg-[#1f6f5b] px-6 text-white hover:bg-[#185846]">
+                    {createContact.isPending ? "Sending…" : "Send Message"}
+                  </Button>
+                </div>
+              </form>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
