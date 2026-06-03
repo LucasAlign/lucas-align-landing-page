@@ -145,18 +145,45 @@ export default function Home() {
           <button
             type="button"
             aria-label="Lucas Align home"
-            className="fixed top-0 left-4 cursor-pointer z-[60]"
+            className="fixed top-0 left-4 cursor-pointer z-[60] flex flex-col items-center"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <img
-              src={logoFull}
-              alt="Lucas Align"
+            {/* Emblem only — clip out the bottom text portion of the PNG, spin on Y-axis */}
+            <div
               style={{
-                height: "18rem",
-                width: "auto",
-                animation: "logo-spin 10s linear infinite",
+                overflow: "hidden",
+                height: "11rem",
+                perspective: "600px",
+                perspectiveOrigin: "center 4.5rem",
               }}
-            />
+            >
+              <img
+                src={logoFull}
+                alt=""
+                style={{
+                  height: "18rem",
+                  width: "auto",
+                  display: "block",
+                  animation: "logo-globe-spin 8s linear infinite",
+                  transformOrigin: "center 4.5rem",
+                }}
+              />
+            </div>
+
+            {/* Static wordmark */}
+            <span
+              style={{
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 800,
+                fontSize: "1.15rem",
+                letterSpacing: "0.22em",
+                color: "#17385f",
+                textTransform: "uppercase",
+                marginTop: "0.1rem",
+              }}
+            >
+              LUCAS ALIGN
+            </span>
           </button>
 
           <nav className="hidden md:flex items-center gap-7">

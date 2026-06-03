@@ -119,8 +119,8 @@
   }
 }
 
-/* Logo spin animation */
-@keyframes logo-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+/* Logo globe spin — rotates on Y-axis like a globe */
+@keyframes logo-globe-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
 }
