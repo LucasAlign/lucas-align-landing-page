@@ -20,7 +20,7 @@ import {
   UsersRound,
   X,
 } from "lucide-react";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { type FormEvent, useState } from "react";
 import aboutImage from "@assets/lucas-brothers-about.webp";
 import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
@@ -69,22 +69,12 @@ const audiences = [
 const CONTACT_EMAIL = "admin" + "\x40" + "lucasalign.com";
 
 export default function Home() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const createContact = useCreateContact();
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const el = scrollAreaRef.current;
-    if (!el) return;
-    const handleScroll = () => setIsScrolled(el.scrollTop > 20);
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => scrollAreaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -123,12 +113,14 @@ export default function Home() {
   };
 
   return (
-    <div className="h-[100dvh] overflow-hidden text-[#16243a] font-sans selection:bg-[#dbe8f0] selection:text-[#16243a] flex flex-col relative">
-      {/* Beach background — absolute within the fixed-size outer container */}
+    <div className="min-h-[100dvh] text-[#16243a] font-sans selection:bg-[#dbe8f0] selection:text-[#16243a]">
+      {/* Beach background — fixed to the viewport, always behind everything */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10"
         style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: -10,
           backgroundImage: `url(${bgBeach})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -138,78 +130,75 @@ export default function Home() {
         }}
       />
 
-      {/* Logo — absolute within the outer container (which never scrolls) */}
-      <button
-        type="button"
-        aria-label="Lucas Align home"
-        className="absolute top-0 left-4 z-[60] flex flex-col items-center"
-        style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
-        onClick={scrollToTop}
-      >
-        <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
-          <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
-            <div
-              style={{
-                position: "relative",
-                transformStyle: "preserve-3d",
-                animation: "logo-globe-spin 8s linear infinite",
-                transformOrigin: "center 4.5rem",
-              }}
-            >
-              {([-16, -12, -8, -4] as const).map((z, i) => (
+      {/* Sticky top bar — logo on left, nav on right. Sticks to top of the scrolling document. */}
+      <div className="sticky top-0 z-50 flex items-start justify-between w-full pointer-events-none">
+
+        {/* Logo */}
+        <button
+          type="button"
+          aria-label="Lucas Align home"
+          className="flex flex-col items-center pointer-events-auto"
+          style={{ background: "none", border: "none", padding: 0, cursor: "pointer", marginLeft: "1rem" }}
+          onClick={scrollToTop}
+        >
+          <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
+            <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
+              <div
+                style={{
+                  position: "relative",
+                  transformStyle: "preserve-3d",
+                  animation: "logo-globe-spin 8s linear infinite",
+                  transformOrigin: "center 4.5rem",
+                }}
+              >
+                {([-16, -12, -8, -4] as const).map((z, i) => (
+                  <img
+                    key={z}
+                    src={logoFull}
+                    alt=""
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      height: "18rem",
+                      width: "auto",
+                      transform: `translateZ(${z}px)`,
+                      filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
+                    }}
+                  />
+                ))}
                 <img
-                  key={z}
                   src={logoFull}
                   alt=""
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
+                    position: "relative",
                     height: "18rem",
                     width: "auto",
-                    transform: `translateZ(${z}px)`,
-                    filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
+                    display: "block",
+                    transform: "translateZ(0px)",
+                    filter: "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
                   }}
                 />
-              ))}
-              <img
-                src={logoFull}
-                alt=""
-                style={{
-                  position: "relative",
-                  height: "18rem",
-                  width: "auto",
-                  display: "block",
-                  transform: "translateZ(0px)",
-                  filter: "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
-                }}
-              />
+              </div>
             </div>
           </div>
-        </div>
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 800,
-            fontSize: "1.15rem",
-            letterSpacing: "0.22em",
-            color: "#17385f",
-            textTransform: "uppercase",
-            marginTop: "0.1rem",
-          }}
-        >
-          LUCAS ALIGN
-        </span>
-      </button>
+          <span
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 800,
+              fontSize: "1.15rem",
+              letterSpacing: "0.22em",
+              color: "#17385f",
+              textTransform: "uppercase",
+              marginTop: "0.1rem",
+            }}
+          >
+            LUCAS ALIGN
+          </span>
+        </button>
 
-      {/* Header — sits in normal flow at the top; outer container never scrolls so it never moves */}
-      <header
-        className={`w-full z-50 transition-all duration-300 flex-shrink-0 ${
-          isScrolled
-            ? "bg-[#f7f5f0]/92 backdrop-blur-md border-b border-[#d8d1c4] shadow-sm"
-            : "bg-transparent"
-        }`}
-      >
+        {/* Nav — always transparent background */}
+        <header className="bg-transparent pointer-events-auto">
         <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-end h-24">
 
           <nav className="hidden md:flex items-center gap-7">
@@ -271,9 +260,8 @@ export default function Home() {
           </div>
         )}
       </header>
+      </div>
 
-      {/* Scrollable content area — scroll happens here, never on the outer container */}
-      <div ref={scrollAreaRef} className="flex-1 overflow-y-auto">
       <main>
         <section className="relative pt-44 pb-18 md:pt-56 md:pb-24 overflow-hidden bg-transparent">
           <div className="absolute inset-0 bg-white/30" />
@@ -610,7 +598,6 @@ export default function Home() {
           <div className="text-sm text-[#6c7884]">&copy; {new Date().getFullYear()} Lucas Align.</div>
         </div>
       </footer>
-      </div>
     </div>
   );
 }
