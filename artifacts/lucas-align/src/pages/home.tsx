@@ -140,14 +140,14 @@ export default function Home() {
           style={{ background: "none", border: "none", padding: 0, cursor: "pointer", marginLeft: "1rem" }}
           onClick={scrollToTop}
         >
-          <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
-            <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
+          <div style={{ position: "relative", height: "clamp(11rem, 25vw, 26rem)", clipPath: "inset(0 0 0 0)" }}>
+            <div style={{ height: "clamp(11rem, 25vw, 26rem)", perspective: "700px", perspectiveOrigin: "center clamp(4.5rem, 10.2vw, 10.6rem)" }}>
               <div
                 style={{
                   position: "relative",
                   transformStyle: "preserve-3d",
                   animation: "logo-globe-spin 8s linear infinite",
-                  transformOrigin: "center 4.5rem",
+                  transformOrigin: "center clamp(4.5rem, 10.2vw, 10.6rem)",
                 }}
               >
                 {([-16, -12, -8, -4] as const).map((z, i) => (
@@ -159,7 +159,7 @@ export default function Home() {
                       position: "absolute",
                       top: 0,
                       left: 0,
-                      height: "18rem",
+                      height: "clamp(18rem, 41vw, 42.5rem)",
                       width: "auto",
                       transform: `translateZ(${z}px)`,
                       filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
@@ -171,7 +171,7 @@ export default function Home() {
                   alt=""
                   style={{
                     position: "relative",
-                    height: "18rem",
+                    height: "clamp(18rem, 41vw, 42.5rem)",
                     width: "auto",
                     display: "block",
                     transform: "translateZ(0px)",
@@ -185,7 +185,7 @@ export default function Home() {
             style={{
               fontFamily: "Inter, sans-serif",
               fontWeight: 800,
-              fontSize: "1.15rem",
+              fontSize: "clamp(1rem, 1.6vw, 1.8rem)",
               letterSpacing: "0.22em",
               color: "#17385f",
               textTransform: "uppercase",
