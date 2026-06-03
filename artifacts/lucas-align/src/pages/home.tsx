@@ -141,11 +141,11 @@ export default function Home() {
       >
         <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-end h-24">
 
-          {/* Logo — absolutely positioned, large statement piece in the top-left corner */}
+          {/* Logo — fixed to the viewport so it never scrolls */}
           <button
             type="button"
             aria-label="Lucas Align home"
-            className="absolute top-0 left-4 cursor-pointer z-20"
+            className="fixed top-0 left-4 cursor-pointer z-[60]"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             {/* Logo image */}
