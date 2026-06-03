@@ -283,7 +283,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="py-20 md:py-28 bg-[#f7f5f0]/82">
+        <section id="about" className="py-20 md:py-28 bg-[#f7f5f0]/55">
           <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-[0.94fr_1.06fr] gap-12 lg:gap-16 items-center">
               <div className="relative">
@@ -315,7 +315,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="products" className="py-20 md:py-28 bg-white/82">
+        <section id="products" className="py-20 md:py-28 bg-white/55">
           <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
             <div className="max-w-3xl mb-12">
               <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9b5c37] mb-4">Products</p>
@@ -350,7 +350,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="philosophy" className="py-20 md:py-28 bg-[#eef3f6]/82">
+        <section id="philosophy" className="py-20 md:py-28 bg-[#eef3f6]/55">
           <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-[0.78fr_1.22fr] gap-12 items-start">
               <div>
@@ -375,7 +375,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="serve" className="py-20 md:py-28 bg-[#f7f5f0]/82">
+        <section id="serve" className="py-20 md:py-28 bg-[#f7f5f0]/55">
           <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-[1fr_1.05fr] gap-12 items-center">
               <div>

@@ -23,6 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import bgBeach from "@assets/image_1780508810059.png";
 
 const features = [
   {
@@ -127,7 +128,20 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#f8faf7] text-[#13201b] font-sans selection:bg-[#cce6d7] selection:text-[#13201b]">
+    <div className="min-h-[100dvh] bg-transparent text-[#13201b] font-sans selection:bg-[#cce6d7] selection:text-[#13201b]">
+      {/* Fixed beach background */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 -z-10"
+        style={{
+          backgroundImage: `url(${bgBeach})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(6px)",
+          transform: "scale(1.08)",
+          opacity: 0.75,
+        }}
+      />
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-300 ${
           isScrolled ? "bg-[#f8faf7]/95 border-b border-[#dce5dd] py-3 shadow-sm backdrop-blur-md" : "bg-transparent py-5"
@@ -179,7 +193,7 @@ export default function HomePage() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="absolute left-0 top-full flex w-full flex-col gap-2 border-b border-[#dce5dd] bg-[#f8faf7] px-5 py-4 shadow-lg md:hidden">
+          <div className="absolute left-0 top-full flex w-full flex-col gap-2 border-b border-[#dce5dd] bg-[#f8faf7]/95 backdrop-blur-md px-5 py-4 shadow-lg md:hidden">
             {[
               ["Workflow", "workflow"],
               ["Roles", "roles"],
@@ -198,7 +212,7 @@ export default function HomePage() {
       </header>
 
       <main>
-        <section className="relative overflow-hidden bg-[#edf5ef] pt-32 md:pt-40">
+        <section className="relative overflow-hidden bg-[#edf5ef]/55 pt-32 md:pt-40">
           <div className="container mx-auto grid max-w-7xl gap-12 px-5 pb-14 sm:px-6 md:pb-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="max-w-3xl">
               <p className="mb-5 inline-flex items-center gap-2 rounded-md border border-[#bdd7ca] bg-white/75 px-3 py-2 text-sm font-bold text-[#1f6f5b]">
@@ -292,7 +306,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="workflow" className="bg-white py-16 md:py-24">
+        <section id="workflow" className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Built Around How Care Communities Actually Work</p>
@@ -313,7 +327,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="roles" className="bg-[#f8faf7] py-16 md:py-24">
+        <section id="roles" className="bg-[#f8faf7]/55 py-16 md:py-24">
           <div className="container mx-auto max-w-7xl px-5 sm:px-6">
             <div className="mb-12 max-w-3xl">
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Who It Serves</p>
@@ -333,7 +347,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="features" className="bg-[#f2f7f3] py-16 md:py-24">
+        <section id="features" className="bg-[#f2f7f3]/55 py-16 md:py-24">
           <div className="container mx-auto max-w-7xl px-5 sm:px-6">
             <div className="mb-12 max-w-3xl">
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Core Features</p>
@@ -361,7 +375,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-white py-16 md:py-24">
+        <section className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Designed for Organizations Serving Families</p>
@@ -399,7 +413,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[#f2f7f3] py-16 md:py-24">
+        <section className="bg-[#f2f7f3]/55 py-16 md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Training & Administration</p>
@@ -426,7 +440,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="security" className="bg-[#13201b] py-16 text-white md:py-24">
+        <section id="security" className="bg-[#13201b]/90 py-16 text-white md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
               <LockKeyhole className="mb-6 h-10 w-10 text-[#96d8b7]" />
@@ -447,7 +461,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[#e6f1ea] py-16 md:py-24">
+        <section className="bg-[#e6f1ea]/55 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-5 text-center sm:px-6">
             <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Why Wraparound?</p>
             <h2 className="mb-6 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">
@@ -460,7 +474,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-white py-16 md:py-24">
+        <section className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
             <div>
               <Database className="mb-6 h-10 w-10 text-[#1f6f5b]" />
@@ -481,7 +495,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="demo" className="bg-white py-16 md:py-24">
+        <section id="demo" className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-5 text-center sm:px-6">
             <Mail className="mx-auto mb-6 h-10 w-10 text-[#1f6f5b]" />
             <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">See how Wraparound can support your organization.</h2>
@@ -498,7 +512,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="border-t border-[#dce5dd] bg-[#f8faf7] py-8">
+      <footer className="border-t border-[#dce5dd] bg-[#f8faf7]/90 py-8">
         <div className="container mx-auto flex max-w-7xl flex-col gap-4 px-5 text-sm text-[#5d7069] sm:px-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2 font-bold text-[#13201b]">
             <HeartHandshake className="h-5 w-5 text-[#1f6f5b]" />
