@@ -130,8 +130,8 @@ export default function Home() {
         }}
       />
 
-      {/* Sticky top bar — logo on left, nav on right. Sticks to top of the scrolling document. */}
-      <div className="sticky top-0 z-50 flex items-start justify-between w-full pointer-events-none">
+      {/* Top bar — logo on left, nav on right. Scrolls naturally with the page. */}
+      <div className="flex items-start justify-between w-full pointer-events-none">
 
         {/* Logo */}
         <button
