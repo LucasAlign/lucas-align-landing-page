@@ -5,19 +5,13 @@ import {
   CalendarDays,
   CheckCircle2,
   ClipboardList,
-  Database,
   HeartHandshake,
   Home,
-  LockKeyhole,
   Mail,
   MapPinned,
   Menu,
   MessageSquareText,
-  Network,
-  PackageCheck,
-  Repeat,
   ShieldCheck,
-  TableProperties,
   Users,
   UserCheck,
   X,
@@ -29,88 +23,77 @@ const features = [
   {
     icon: Home,
     title: "Care Circle Dashboard",
-    description: "Give each family a live command center for practical support.",
-    items: ["Upcoming schedule items", "Open needs", "Recent posts", "Key support stats", "Care circle activity"],
+    description: "Each family has a central place where their support circle can see upcoming needs, recent updates, and how care is going.",
+    items: ["Upcoming schedule items", "Open needs", "Recent posts", "Care circle activity"],
   },
   {
     icon: ClipboardList,
     title: "Needs Board",
-    description: "Turn every meal, ride, errand, yardwork request, or prayer need into clear action.",
-    items: ["Open need listings", "Volunteer claiming", "Support type tracking", "Automatic closeout", "Assigned family scope"],
+    description: "Practical needs — meals, rides, childcare, errands, yardwork, prayer — are posted clearly so volunteers can step in with confidence.",
+    items: ["Open need listings", "Volunteer claiming", "Automatic closeout", "Family-scoped needs"],
   },
   {
     icon: CalendarDays,
-    title: "Schedule & Recurring Support",
-    description: "Coordinate support visits once, then let recurring rules keep the rhythm moving.",
-    items: ["Weekly calendar", "Recurring meals", "Monthly meetings", "Transportation support", "Upcoming commitments"],
+    title: "Scheduling & Recurring Support",
+    description: "Coordinate recurring meals, visits, and meetings once, and let the rhythm carry forward without constant rescheduling.",
+    items: ["Weekly calendar view", "Recurring meal planning", "Transportation coordination", "Monthly meeting scheduling"],
   },
   {
     icon: MessageSquareText,
     title: "Community Feed",
-    description: "Keep each family's care circle connected to updates, prayer requests, and celebrations.",
-    items: ["Announcements", "Family updates", "Comments", "Reactions", "Need-related posts"],
+    description: "Families and their care circle stay connected through updates, prayer requests, and celebrations — all in one place.",
+    items: ["Family updates", "Prayer requests", "Announcements", "Encouragement and reactions"],
   },
   {
     icon: Users,
     title: "Volunteer Directory",
-    description: "Search active volunteers and understand how each person is equipped to help.",
-    items: ["Support specialties", "Childcare approval", "Availability", "Volunteer profiles", "Awaiting activation"],
+    description: "Know who is available, what they are equipped to help with, and where each volunteer is in their journey of serving.",
+    items: ["Volunteer profiles", "Support specialties", "Childcare approval status", "Availability"],
   },
   {
     icon: UserCheck,
-    title: "Training Pipeline",
-    description: "Move recruits from invite to registration, training completion, and activation.",
-    items: ["Secure invite links", "Training modules", "Progress matrix", "Automatic promotion", "Admin activation"],
+    title: "Training & Onboarding",
+    description: "Walk new volunteers from invitation through registration, training completion, and activation — with nothing falling through the cracks.",
+    items: ["Secure invite links", "Training modules", "Progress tracking", "Admin activation queue"],
   },
   {
     icon: MessageSquareText,
-    title: "Messaging & Notifications",
-    description: "Keep direct and group communication organized inside the platform.",
-    items: ["Family chat threads", "Direct messaging", "Group threads", "Need activity alerts", "Schedule change alerts"],
+    title: "Messaging",
+    description: "Keep communication organized inside the platform so nothing gets lost in email threads or group texts.",
+    items: ["Family chat threads", "Direct messaging", "Group communication", "Need activity alerts"],
   },
   {
     icon: MapPinned,
-    title: "Admin & Reporting",
-    description: "Give coordinators the visibility they need across counties, churches, and communities.",
-    items: ["County analytics", "Master list views", "CSV import", "Audit log", "Reference tables"],
+    title: "Coordinator Reporting",
+    description: "Give staff the visibility they need to care well across multiple families, churches, and communities.",
+    items: ["County-level overview", "Family and volunteer lists", "Care community health", "Administrative controls"],
   },
 ];
 
 const roleViews = [
   {
     title: "Families",
-    detail: "Foster, adoptive, kinship, and vulnerable families receive coordinated support from a dedicated care circle.",
+    detail: "Foster, adoptive, kinship, and vulnerable families receive consistent, coordinated support from a dedicated care circle that knows them.",
   },
   {
     title: "Volunteers",
-    detail: "Trained church volunteers claim meals, rides, childcare, errands, prayer needs, and other direct support.",
+    detail: "Trained church volunteers claim practical needs — meals, rides, childcare, errands, prayer — and show up when and where it matters.",
   },
   {
     title: "Lead Volunteers",
-    detail: "Experienced volunteers coordinate day-to-day follow-through within a family's care circle.",
+    detail: "Experienced volunteers take ownership of day-to-day follow-through within a family's care circle, keeping support on track.",
   },
   {
     title: "Church Advocates",
-    detail: "Church representatives recruit, encourage, and support volunteers from their congregation.",
+    detail: "Church representatives recruit, encourage, and stay connected to the volunteers serving from their congregation.",
   },
   {
-    title: "County Coordinators & Central Admins",
-    detail: "Nonprofit staff manage communities, families, volunteers, churches, permissions, and reporting.",
+    title: "County Coordinators",
+    detail: "Nonprofit staff and central admins manage families, volunteers, churches, and the health of care across their whole community.",
   },
 ];
 
-const workflowItems = ["Invite", "Register", "Train", "Activate", "Assign", "Support", "Report", "Improve"];
-
-const supportTypes = ["Meals", "Transportation", "Babysitting", "Errands", "Yardwork", "Prayer", "Celebrations", "Meetings"];
-
-const techStack = [
-  ["Frontend", "React, Vite, TypeScript"],
-  ["API", "Express 5 and AWS API Gateway"],
-  ["Auth", "AWS Cognito with PKCE flow"],
-  ["Database", "PostgreSQL with Drizzle ORM"],
-  ["Validation", "Zod"],
-  ["API Layer", "OpenAPI with Orval React Query codegen"],
-];
+const supportTypes = ["Meals", "Transportation", "Childcare", "Errands", "Yardwork", "Prayer", "Celebrations", "Encouragement"];
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -164,20 +147,17 @@ export default function HomePage() {
           </button>
 
           <nav className="hidden items-center gap-7 md:flex">
-            <button onClick={() => scrollTo("workflow")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
-              Workflow
+            <button onClick={() => scrollTo("how-it-works")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
+              How It Works
             </button>
-            <button onClick={() => scrollTo("roles")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
-              Roles
+            <button onClick={() => scrollTo("who-we-serve")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
+              Who It Serves
             </button>
             <button onClick={() => scrollTo("features")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
               Features
             </button>
-            <button onClick={() => scrollTo("security")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
-              Security
-            </button>
-            <Button className="h-10 rounded-md bg-[#1f6f5b] px-5 text-white hover:bg-[#185846]" onClick={() => scrollTo("demo")}>
-              Request a Demo
+            <Button className="h-10 rounded-md bg-[#1f6f5b] px-5 text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+              Get in Touch
             </Button>
           </nav>
 
@@ -195,43 +175,42 @@ export default function HomePage() {
         {mobileMenuOpen && (
           <div className="absolute left-0 top-full flex w-full flex-col gap-2 border-b border-[#dce5dd] bg-[#f8faf7]/95 backdrop-blur-md px-5 py-4 shadow-lg md:hidden">
             {[
-              ["Workflow", "workflow"],
-              ["Roles", "roles"],
+              ["How It Works", "how-it-works"],
+              ["Who It Serves", "who-we-serve"],
               ["Features", "features"],
-              ["Security", "security"],
             ].map(([label, id]) => (
               <button key={id} onClick={() => scrollTo(id)} className="border-b border-[#e4ebe5] py-3 text-left font-semibold text-[#263a33]">
                 {label}
               </button>
             ))}
-            <Button className="mt-2 h-11 rounded-md bg-[#1f6f5b] text-white hover:bg-[#185846]" onClick={() => scrollTo("demo")}>
-              Request a Demo
+            <Button className="mt-2 h-11 rounded-md bg-[#1f6f5b] text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+              Get in Touch
             </Button>
           </div>
         )}
       </header>
 
       <main>
+        {/* Hero */}
         <section className="relative overflow-hidden bg-[#edf5ef]/55 pt-32 md:pt-40">
           <div className="container mx-auto grid max-w-7xl gap-12 px-5 pb-14 sm:px-6 md:pb-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="max-w-3xl">
               <p className="mb-5 inline-flex items-center gap-2 rounded-md border border-[#bdd7ca] bg-white/75 px-3 py-2 text-sm font-bold text-[#1f6f5b]">
-                <ShieldCheck className="h-4 w-4" />
+                <HeartHandshake className="h-4 w-4" />
                 Software for Care Communities
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-[1.04] tracking-tight text-[#13201b] md:text-6xl">
-                Coordinate care around families from one platform.
+                No family should walk through the hard seasons alone.
               </h1>
               <p className="mb-5 max-w-2xl text-lg leading-relaxed text-[#43554e] md:text-xl">
-                Wraparound helps organizations coordinate Care Communities, volunteers, advocates, and families from a single platform built for foster,
-                adoptive, kinship, and vulnerable family support.
+                Wraparound helps churches, nonprofits, and care organizations surround foster, adoptive, kinship, and vulnerable families with consistent, organized, and faithful support.
               </p>
               <p className="mb-8 max-w-2xl text-base font-semibold leading-relaxed text-[#263a33]">
-                No family walks alone. Every family gets a dedicated care circle, every need gets a volunteer, and every supporter stays informed.
+                Every family gets a dedicated care circle. Every need gets a volunteer. Every supporter stays connected.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <Button className="h-12 rounded-md bg-[#1f6f5b] px-7 text-base text-white hover:bg-[#185846]" onClick={() => scrollTo("demo")}>
-                  Request a Demo
+                <Button className="h-12 rounded-md bg-[#1f6f5b] px-7 text-base text-white hover:bg-[#185846]" onClick={() => scrollTo("contact")}>
+                  Get in Touch
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
@@ -239,7 +218,7 @@ export default function HomePage() {
                   className="h-12 rounded-md border-[#a8bcb2] bg-white/70 px-7 text-base text-[#263a33] hover:bg-white"
                   onClick={() => scrollTo("features")}
                 >
-                  Explore Features
+                  See How It Works
                 </Button>
               </div>
             </motion.div>
@@ -306,32 +285,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="workflow" className="bg-white/55 py-16 md:py-24">
+        {/* How It Works */}
+        <section id="how-it-works" className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto grid max-w-7xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Built Around How Care Communities Actually Work</p>
-              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Turn the intention to help into organized, trackable action.</h2>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">How It Works</p>
+              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Good intentions need a place to land.</h2>
               <p className="text-lg leading-relaxed text-[#52645d]">
-                Most organizations manage Care Communities using spreadsheets, emails, text messages, shared calendars, and multiple disconnected systems.
-                Wraparound brings the full support rhythm together without adding administrative burden.
+                Many organizations rely on spreadsheets, group texts, and word-of-mouth to coordinate care. Wraparound gives every person in a family's support network one place to see what is needed, step in, and stay connected — without adding burden to coordinators or volunteers.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {workflowItems.map((item) => (
-                <div key={item} className="flex items-center gap-3 rounded-md border border-[#dce5dd] bg-[#f8faf7] p-4">
-                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[#1f6f5b]" />
-                  <span className="font-semibold text-[#263a33]">{item}</span>
+              {["A family is enrolled and their care circle is assembled.", "Practical needs are posted and volunteers step in to help.", "Meals, rides, childcare, and errands get scheduled and tracked.", "The whole care circle stays connected through updates and prayer.", "Coordinators see across families, churches, and communities.", "Volunteers are trained, activated, and supported as they serve."].map((item) => (
+                <div key={item} className="flex items-start gap-3 rounded-md border border-[#dce5dd] bg-[#f8faf7] p-4">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#1f6f5b]" />
+                  <span className="text-sm font-semibold leading-relaxed text-[#263a33]">{item}</span>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="roles" className="bg-[#f8faf7]/55 py-16 md:py-24">
+        {/* Who It Serves */}
+        <section id="who-we-serve" className="bg-[#f8faf7]/55 py-16 md:py-24">
           <div className="container mx-auto max-w-7xl px-5 sm:px-6">
             <div className="mb-12 max-w-3xl">
               <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Who It Serves</p>
-              <h2 className="text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Five roles, one coordinated care network.</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Built for everyone in the care network.</h2>
+              <p className="mt-5 text-lg leading-relaxed text-[#52645d]">
+                Wraparound is built around the full picture of a Care Community — from the family at the center to the coordinators holding everything together.
+              </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
               {roleViews.map((role) => (
@@ -347,15 +330,54 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="features" className="bg-[#f2f7f3]/55 py-16 md:py-24">
+        {/* What gets coordinated */}
+        <section className="bg-[#f2f7f3]/55 py-16 md:py-24">
+          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Practical, Tangible Support</p>
+              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Meeting families where they actually are.</h2>
+              <p className="mb-6 text-lg leading-relaxed text-[#52645d]">
+                Wraparound is built around the real, everyday needs of families walking through hard seasons — not generic task management. Every category of support reflects what families and coordinators told us they actually need.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {supportTypes.map((type) => (
+                  <span key={type} className="rounded-md border border-[#bdd7ca] bg-[#f8faf7] px-3 py-2 text-sm font-bold text-[#1f6f5b]">
+                    {type}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <HeartHandshake className="h-6 w-6 text-[#1f6f5b]" />
+                <h3 className="text-xl font-bold text-[#13201b]">Care Circle Flow</h3>
+              </div>
+              <div className="space-y-3">
+                {[
+                  "Families share what they need, how life is going, and what would help.",
+                  "Lead Volunteers keep the care circle organized and attentive to the family.",
+                  "Volunteers claim practical needs and show up faithfully over time.",
+                  "Church Advocates and coordinators watch over the health of every care circle.",
+                ].map((item) => (
+                  <div key={item} className="rounded-md border border-[#dce5dd] bg-white p-4 font-medium text-[#43554e]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section id="features" className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto max-w-7xl px-5 sm:px-6">
             <div className="mb-12 max-w-3xl">
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Core Features</p>
-              <h2 className="text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Everything needed to coordinate ongoing care.</h2>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">What's Inside</p>
+              <h2 className="text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Everything a care organization needs in one place.</h2>
             </div>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {features.map((feature) => (
-                <article key={feature.title} className="rounded-lg border border-[#dce5dd] bg-white p-6 shadow-sm">
+                <article key={feature.title} className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-6 shadow-sm">
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-[#dff2e8] text-[#1f6f5b]">
                     <feature.icon className="h-5 w-5" />
                   </div>
@@ -375,135 +397,39 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-white/55 py-16 md:py-24">
-          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Designed for Organizations Serving Families</p>
-              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Structured for real relationships, responsibilities, and follow-through.</h2>
-              <p className="text-lg leading-relaxed text-[#52645d]">
-                Wraparound was built with input from organizations actively supporting foster, adoptive, kinship, and vulnerable families. Whether serving one
-                family or hundreds, it provides a structured system for managing relationships, volunteers, and ongoing care.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {supportTypes.map((type) => (
-                  <span key={type} className="rounded-md border border-[#bdd7ca] bg-[#f8faf7] px-3 py-2 text-sm font-bold text-[#1f6f5b]">
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-6">
-              <div className="mb-5 flex items-center gap-3">
-                <Network className="h-6 w-6 text-[#1f6f5b]" />
-                <h3 className="text-xl font-bold text-[#13201b]">Care Circle Flow</h3>
-              </div>
-              <div className="space-y-3">
-                {[
-                  "Families share context, preferences, and practical needs.",
-                  "Lead Volunteers keep support organized around the family.",
-                  "Volunteers claim needs and receive schedule updates.",
-                  "Church Advocates and coordinators monitor health across care circles.",
-                ].map((item) => (
-                  <div key={item} className="rounded-md border border-[#dce5dd] bg-white p-4 font-medium text-[#43554e]">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Security — short blurb only */}
+        <section className="bg-[#f2f7f3]/55 py-12 md:py-16">
+          <div className="container mx-auto max-w-3xl px-5 text-center sm:px-6">
+            <ShieldCheck className="mx-auto mb-4 h-8 w-8 text-[#1f6f5b]" />
+            <p className="text-base leading-relaxed text-[#43554e]">
+              <span className="font-semibold text-[#13201b]">Family information is treated with care.</span>{" "}
+              Wraparound uses industry-standard authentication and security protocols to protect sensitive data and ensure that access is appropriate to each person's role.
+            </p>
           </div>
         </section>
 
-        <section className="bg-[#f2f7f3]/55 py-16 md:py-24">
-          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <div>
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Training & Administration</p>
-              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">A complete path from recruit to active volunteer.</h2>
-              <p className="text-lg leading-relaxed text-[#52645d]">
-                Admins generate secure invite links, trainees register and complete required modules, and finished trainees move into an awaiting activation
-                queue before becoming active volunteers.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {[
-                [PackageCheck, "Module Library", "Manage videos, articles, PDFs, links, and required training resources."],
-                [TableProperties, "Progress Matrix", "See completion status for every trainee across every module."],
-                [UserCheck, "Awaiting Activation", "Review trainees who finished training and activate them from the Volunteers page."],
-                [Repeat, "Reference Management", "Maintain support types, volunteer roles, statuses, and other shared tables."],
-              ].map(([Icon, title, detail]) => (
-                <article key={String(title)} className="rounded-lg border border-[#dce5dd] bg-white p-6 shadow-sm">
-                  <Icon className="mb-5 h-6 w-6 text-[#1f6f5b]" />
-                  <h3 className="mb-2 text-xl font-bold text-[#13201b]">{title}</h3>
-                  <p className="leading-relaxed text-[#52645d]">{detail}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="security" className="bg-[#13201b]/90 py-16 text-white md:py-24">
-          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-            <div>
-              <LockKeyhole className="mb-6 h-10 w-10 text-[#96d8b7]" />
-              <h2 className="mb-5 text-3xl font-bold tracking-tight md:text-5xl">Family information deserves careful stewardship.</h2>
-              <p className="text-lg leading-relaxed text-[#c7d8d0]">
-                Wraparound uses secure authentication, role-based permissions, and modern cloud infrastructure to help organizations manage sensitive
-                information responsibly.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {["Secure authentication", "Role-based permissions", "Appropriate access by role"].map((item) => (
-                <div key={item} className="rounded-lg border border-white/12 bg-white/7 p-5">
-                  <ShieldCheck className="mb-5 h-6 w-6 text-[#96d8b7]" />
-                  <p className="font-bold">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        {/* Closing mission statement */}
         <section className="bg-[#e6f1ea]/55 py-16 md:py-24">
-          <div className="container mx-auto max-w-5xl px-5 text-center sm:px-6">
-            <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Why Wraparound?</p>
+          <div className="container mx-auto max-w-4xl px-5 text-center sm:px-6">
             <h2 className="mb-6 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">
-              Supporting families should not require managing five different systems.
+              The families being served deserve more than good intentions.
             </h2>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-[#43554e]">
-              Wraparound provides one place to coordinate people, schedules, communication, and care. Simple enough for volunteers. Powerful enough for
-              coordinators. Built specifically for Care Communities.
+              Wraparound exists to make it possible for communities of care to form around families, stay organized over time, and show up consistently — not just in a moment of crisis, but through the long and ordinary seasons of life.
             </p>
           </div>
         </section>
 
-        <section className="bg-white/55 py-16 md:py-24">
-          <div className="container mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-            <div>
-              <Database className="mb-6 h-10 w-10 text-[#1f6f5b]" />
-              <p className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#1f6f5b]">Technology</p>
-              <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Built on a modern, type-safe stack.</h2>
-              <p className="text-lg leading-relaxed text-[#52645d]">
-                Wraparound is engineered for maintainable product growth, reliable data workflows, and strongly typed API integration from database to React.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {techStack.map(([label, value]) => (
-                <div key={label} className="rounded-lg border border-[#dce5dd] bg-[#f8faf7] p-5">
-                  <p className="mb-2 text-sm font-bold uppercase tracking-[0.14em] text-[#1f6f5b]">{label}</p>
-                  <p className="font-semibold text-[#263a33]">{value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="demo" className="bg-white/55 py-16 md:py-24">
+        {/* Contact */}
+        <section id="contact" className="bg-white/55 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl px-5 text-center sm:px-6">
             <Mail className="mx-auto mb-6 h-10 w-10 text-[#1f6f5b]" />
-            <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">See how Wraparound can support your organization.</h2>
+            <h2 className="mb-5 text-3xl font-bold tracking-tight text-[#13201b] md:text-5xl">Want to see it in action?</h2>
             <p className="mx-auto mb-9 max-w-2xl text-lg leading-relaxed text-[#52645d]">
-              Schedule a demo to see how Care Communities, volunteer assignments, family records, scheduling, and communication can work together in one place.
+              If your organization is supporting foster, adoptive, kinship, or vulnerable families and you're looking for a better way to coordinate care, we'd love to connect.
             </p>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
-              <Button className="h-12 rounded-md bg-[#1f6f5b] px-8 text-base text-white hover:bg-[#185846]">Schedule a Demo</Button>
+              <Button className="h-12 rounded-md bg-[#1f6f5b] px-8 text-base text-white hover:bg-[#185846]">Schedule a Conversation</Button>
               <Button variant="outline" className="h-12 rounded-md border-[#a8bcb2] bg-white px-8 text-base text-[#263a33] hover:bg-[#f8faf7]">
                 Contact Us
               </Button>
