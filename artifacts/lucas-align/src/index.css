@@ -119,16 +119,16 @@
   }
 }
 
-/* Globe-orbit animation for the logo rings */
+/* Globe-orbit animation for the logo rings — all counter-clockwise */
 @keyframes globe-orbit-a {
-  from { transform: rotateX(68deg) rotateY(0deg); }
-  to   { transform: rotateX(68deg) rotateY(360deg); }
+  from { transform: rotateX(55deg) rotateY(360deg); }
+  to   { transform: rotateX(55deg) rotateY(0deg); }
 }
 @keyframes globe-orbit-b {
-  from { transform: rotateX(68deg) rotateZ(55deg) rotateY(0deg); }
-  to   { transform: rotateX(68deg) rotateZ(55deg) rotateY(360deg); }
+  from { transform: rotateX(55deg) rotateZ(50deg) rotateY(360deg); }
+  to   { transform: rotateX(55deg) rotateZ(50deg) rotateY(0deg); }
 }
 @keyframes globe-orbit-c {
-  from { transform: rotateX(68deg) rotateZ(-40deg) rotateY(0deg); }
-  to   { transform: rotateX(68deg) rotateZ(-40deg) rotateY(360deg); }
+  from { transform: rotateX(55deg) rotateZ(-38deg) rotateY(360deg); }
+  to   { transform: rotateX(55deg) rotateZ(-38deg) rotateY(0deg); }
 }

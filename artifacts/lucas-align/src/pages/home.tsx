@@ -133,25 +133,27 @@ export default function Home() {
         }}
       />
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        className={`fixed top-0 w-full z-50 overflow-visible transition-all duration-300 ${
           isScrolled
-            ? "bg-[#f7f5f0]/92 backdrop-blur-md border-b border-[#d8d1c4] shadow-sm py-3"
-            : "bg-transparent py-5"
+            ? "bg-[#f7f5f0]/92 backdrop-blur-md border-b border-[#d8d1c4] shadow-sm"
+            : "bg-transparent"
         }`}
       >
-        <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-between">
+        <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-end h-24">
+
+          {/* Logo — absolutely positioned, large statement piece in the top-left corner */}
           <button
             type="button"
             aria-label="Lucas Align home"
-            className="relative cursor-pointer -ml-3 -mt-4 group"
+            className="absolute top-0 left-4 cursor-pointer z-20"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            {/* Logo image — large, corner-filling */}
+            {/* Logo image */}
             <img
               src={logoFull}
               alt="Lucas Align"
               className="relative z-10"
-              style={{ height: "9rem", width: "auto" }}
+              style={{ height: "18rem", width: "auto" }}
             />
 
             {/* Globe orbit rings — centered on the emblem (upper ~62% of logo) */}
@@ -162,36 +164,36 @@ export default function Home() {
                 left: 0,
                 right: 0,
                 bottom: "38%",
-                perspective: "160px",
+                perspective: "280px",
               }}
             >
-              {/* Ring A — equatorial */}
+              {/* Ring A — equatorial, counter-clockwise */}
               <div
                 className="absolute rounded-full"
                 style={{
                   inset: "6%",
-                  border: "2px solid rgba(90,200,255,0.70)",
-                  animation: "globe-orbit-a 4.5s linear infinite",
+                  border: "2.5px solid rgba(90,200,255,0.70)",
+                  animation: "globe-orbit-a 5s linear infinite",
                   transformOrigin: "center center",
                 }}
               />
-              {/* Ring B — tilted +55° */}
+              {/* Ring B — tilted +50°, counter-clockwise */}
               <div
                 className="absolute rounded-full"
                 style={{
                   inset: "12%",
-                  border: "1.5px solid rgba(50,160,240,0.50)",
-                  animation: "globe-orbit-b 6.5s linear infinite reverse",
+                  border: "2px solid rgba(50,160,240,0.50)",
+                  animation: "globe-orbit-b 7.5s linear infinite",
                   transformOrigin: "center center",
                 }}
               />
-              {/* Ring C — tilted −40° */}
+              {/* Ring C — tilted −38°, counter-clockwise */}
               <div
                 className="absolute rounded-full"
                 style={{
-                  inset: "18%",
-                  border: "1px solid rgba(120,210,255,0.35)",
-                  animation: "globe-orbit-c 9s linear infinite",
+                  inset: "19%",
+                  border: "1.5px solid rgba(120,210,255,0.35)",
+                  animation: "globe-orbit-c 10s linear infinite",
                   transformOrigin: "center center",
                 }}
               />
