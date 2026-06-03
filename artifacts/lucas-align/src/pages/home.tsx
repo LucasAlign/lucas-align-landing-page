@@ -148,56 +148,15 @@ export default function Home() {
             className="fixed top-0 left-4 cursor-pointer z-[60]"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            {/* Logo image */}
             <img
               src={logoFull}
               alt="Lucas Align"
-              className="relative z-10"
-              style={{ height: "18rem", width: "auto" }}
-            />
-
-            {/* Globe orbit rings — centered on the emblem (upper ~62% of logo) */}
-            <div
-              className="absolute pointer-events-none"
               style={{
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: "38%",
-                perspective: "280px",
+                height: "18rem",
+                width: "auto",
+                animation: "logo-spin 10s linear infinite",
               }}
-            >
-              {/* Ring A — equatorial, counter-clockwise */}
-              <div
-                className="absolute rounded-full"
-                style={{
-                  inset: "6%",
-                  border: "2.5px solid rgba(90,200,255,0.70)",
-                  animation: "globe-orbit-a 5s linear infinite",
-                  transformOrigin: "center center",
-                }}
-              />
-              {/* Ring B — tilted +50°, counter-clockwise */}
-              <div
-                className="absolute rounded-full"
-                style={{
-                  inset: "12%",
-                  border: "2px solid rgba(50,160,240,0.50)",
-                  animation: "globe-orbit-b 7.5s linear infinite",
-                  transformOrigin: "center center",
-                }}
-              />
-              {/* Ring C — tilted −38°, counter-clockwise */}
-              <div
-                className="absolute rounded-full"
-                style={{
-                  inset: "19%",
-                  border: "1.5px solid rgba(120,210,255,0.35)",
-                  animation: "globe-orbit-c 10s linear infinite",
-                  transformOrigin: "center center",
-                }}
-              />
-            </div>
+            />
           </button>
 
           <nav className="hidden md:flex items-center gap-7">

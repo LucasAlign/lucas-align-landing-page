@@ -119,16 +119,8 @@
   }
 }
 
-/* Globe-orbit animation for the logo rings — clockwise, matching the logo arrow direction */
-@keyframes globe-orbit-a {
-  from { transform: rotateX(55deg) rotateY(0deg); }
-  to   { transform: rotateX(55deg) rotateY(360deg); }
-}
-@keyframes globe-orbit-b {
-  from { transform: rotateX(55deg) rotateZ(50deg) rotateY(0deg); }
-  to   { transform: rotateX(55deg) rotateZ(50deg) rotateY(360deg); }
-}
-@keyframes globe-orbit-c {
-  from { transform: rotateX(55deg) rotateZ(-38deg) rotateY(0deg); }
-  to   { transform: rotateX(55deg) rotateZ(-38deg) rotateY(360deg); }
+/* Logo spin animation */
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
