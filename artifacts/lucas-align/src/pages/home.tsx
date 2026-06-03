@@ -132,96 +132,96 @@ export default function Home() {
           opacity: 0.75,
         }}
       />
+      {/* Logo — lives outside the header so backdrop-filter never hijacks its fixed position */}
+      <button
+        type="button"
+        aria-label="Lucas Align home"
+        className="fixed top-0 left-4 cursor-pointer z-[60] flex flex-col items-center"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      >
+        {/* Emblem only — clip-path trims the PNG text, preserves 3D for depth layers */}
+        <div
+          style={{
+            position: "relative",
+            height: "11rem",
+            clipPath: "inset(0 0 0 0)",
+          }}
+        >
+          <div
+            style={{
+              height: "11rem",
+              perspective: "700px",
+              perspectiveOrigin: "center 4.5rem",
+            }}
+          >
+            {/* Spinning slab — preserve-3d so Z-layers get real depth */}
+            <div
+              style={{
+                position: "relative",
+                transformStyle: "preserve-3d",
+                animation: "logo-globe-spin 8s linear infinite",
+                transformOrigin: "center 4.5rem",
+              }}
+            >
+              {/* Edge/depth layers — progressively darker back slices */}
+              {([-16, -12, -8, -4] as const).map((z, i) => (
+                <img
+                  key={z}
+                  src={logoFull}
+                  alt=""
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    height: "18rem",
+                    width: "auto",
+                    transform: `translateZ(${z}px)`,
+                    filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
+                  }}
+                />
+              ))}
+              {/* Front face — full brightness with glow */}
+              <img
+                src={logoFull}
+                alt=""
+                style={{
+                  position: "relative",
+                  height: "18rem",
+                  width: "auto",
+                  display: "block",
+                  transform: "translateZ(0px)",
+                  filter:
+                    "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Static wordmark */}
+        <span
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 800,
+            fontSize: "1.15rem",
+            letterSpacing: "0.22em",
+            color: "#17385f",
+            textTransform: "uppercase",
+            marginTop: "0.1rem",
+          }}
+        >
+          LUCAS ALIGN
+        </span>
+      </button>
+
       <header
-        className={`fixed top-0 w-full z-50 overflow-visible transition-all duration-300 ${
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-[#f7f5f0]/92 backdrop-blur-md border-b border-[#d8d1c4] shadow-sm"
             : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-end h-24">
-
-          {/* Logo — fixed to the viewport so it never scrolls */}
-          <button
-            type="button"
-            aria-label="Lucas Align home"
-            className="fixed top-0 left-4 cursor-pointer z-[60] flex flex-col items-center"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            {/* Emblem only — clip-path trims the PNG text, preserves 3D for depth layers */}
-            <div
-              style={{
-                position: "relative",
-                height: "11rem",
-                clipPath: "inset(0 0 0 0)",
-              }}
-            >
-              <div
-                style={{
-                  height: "11rem",
-                  perspective: "700px",
-                  perspectiveOrigin: "center 4.5rem",
-                }}
-              >
-                {/* Spinning slab — preserve-3d so Z-layers get real depth */}
-                <div
-                  style={{
-                    position: "relative",
-                    transformStyle: "preserve-3d",
-                    animation: "logo-globe-spin 8s linear infinite",
-                    transformOrigin: "center 4.5rem",
-                  }}
-                >
-                  {/* Edge/depth layers — progressively darker back slices */}
-                  {([-16, -12, -8, -4] as const).map((z, i) => (
-                    <img
-                      key={z}
-                      src={logoFull}
-                      alt=""
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        height: "18rem",
-                        width: "auto",
-                        transform: `translateZ(${z}px)`,
-                        filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
-                      }}
-                    />
-                  ))}
-                  {/* Front face — full brightness with glow */}
-                  <img
-                    src={logoFull}
-                    alt=""
-                    style={{
-                      position: "relative",
-                      height: "18rem",
-                      width: "auto",
-                      display: "block",
-                      transform: "translateZ(0px)",
-                      filter:
-                        "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Static wordmark */}
-            <span
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontWeight: 800,
-                fontSize: "1.15rem",
-                letterSpacing: "0.22em",
-                color: "#17385f",
-                textTransform: "uppercase",
-                marginTop: "0.1rem",
-              }}
-            >
-              LUCAS ALIGN
-            </span>
-          </button>
 
           <nav className="hidden md:flex items-center gap-7">
             <button onClick={() => scrollTo("about")} className="text-sm font-semibold text-[#4f6074] hover:text-[#9b5c37] transition-colors">
