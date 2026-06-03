@@ -21,6 +21,7 @@ import {
   X,
 } from "lucide-react";
 import { type FormEvent, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import aboutImage from "@assets/lucas-brothers-about.webp";
 import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
@@ -132,87 +133,84 @@ export default function Home() {
           opacity: 0.75,
         }}
       />
-      {/* Logo — lives outside the header so backdrop-filter never hijacks its fixed position */}
-      <button
-        type="button"
-        aria-label="Lucas Align home"
-        className="fixed top-0 left-4 cursor-pointer z-[60] flex flex-col items-center"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      >
-        {/* Emblem only — clip-path trims the PNG text, preserves 3D for depth layers */}
-        <div
+      {/* Logo rendered into document.body via portal — zero ancestor interference */}
+      {createPortal(
+        <button
+          type="button"
+          aria-label="Lucas Align home"
           style={{
-            position: "relative",
-            height: "11rem",
-            clipPath: "inset(0 0 0 0)",
+            position: "fixed",
+            top: 0,
+            left: "1rem",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
           }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <div
-            style={{
-              height: "11rem",
-              perspective: "700px",
-              perspectiveOrigin: "center 4.5rem",
-            }}
-          >
-            {/* Spinning slab — preserve-3d so Z-layers get real depth */}
-            <div
-              style={{
-                position: "relative",
-                transformStyle: "preserve-3d",
-                animation: "logo-globe-spin 8s linear infinite",
-                transformOrigin: "center 4.5rem",
-              }}
-            >
-              {/* Edge/depth layers — progressively darker back slices */}
-              {([-16, -12, -8, -4] as const).map((z, i) => (
+          {/* Emblem only — clip-path trims PNG text, preserves 3D for depth */}
+          <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
+            <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
+              <div
+                style={{
+                  position: "relative",
+                  transformStyle: "preserve-3d",
+                  animation: "logo-globe-spin 8s linear infinite",
+                  transformOrigin: "center 4.5rem",
+                }}
+              >
+                {([-16, -12, -8, -4] as const).map((z, i) => (
+                  <img
+                    key={z}
+                    src={logoFull}
+                    alt=""
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      height: "18rem",
+                      width: "auto",
+                      transform: `translateZ(${z}px)`,
+                      filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
+                    }}
+                  />
+                ))}
                 <img
-                  key={z}
                   src={logoFull}
                   alt=""
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
+                    position: "relative",
                     height: "18rem",
                     width: "auto",
-                    transform: `translateZ(${z}px)`,
-                    filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
+                    display: "block",
+                    transform: "translateZ(0px)",
+                    filter: "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
                   }}
                 />
-              ))}
-              {/* Front face — full brightness with glow */}
-              <img
-                src={logoFull}
-                alt=""
-                style={{
-                  position: "relative",
-                  height: "18rem",
-                  width: "auto",
-                  display: "block",
-                  transform: "translateZ(0px)",
-                  filter:
-                    "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
-                }}
-              />
+              </div>
             </div>
           </div>
-        </div>
-
-        {/* Static wordmark */}
-        <span
-          style={{
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 800,
-            fontSize: "1.15rem",
-            letterSpacing: "0.22em",
-            color: "#17385f",
-            textTransform: "uppercase",
-            marginTop: "0.1rem",
-          }}
-        >
-          LUCAS ALIGN
-        </span>
-      </button>
+          <span
+            style={{
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 800,
+              fontSize: "1.15rem",
+              letterSpacing: "0.22em",
+              color: "#17385f",
+              textTransform: "uppercase",
+              marginTop: "0.1rem",
+            }}
+          >
+            LUCAS ALIGN
+          </span>
+        </button>,
+        document.body
+      )}
 
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
