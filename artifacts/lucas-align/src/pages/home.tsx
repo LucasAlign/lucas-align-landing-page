@@ -143,10 +143,59 @@ export default function Home() {
           <button
             type="button"
             aria-label="Lucas Align home"
-            className="flex items-center cursor-pointer"
+            className="relative cursor-pointer -ml-3 -mt-4 group"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <img src={logoFull} alt="Lucas Align" className="h-24 w-auto" />
+            {/* Logo image — large, corner-filling */}
+            <img
+              src={logoFull}
+              alt="Lucas Align"
+              className="relative z-10"
+              style={{ height: "9rem", width: "auto" }}
+            />
+
+            {/* Globe orbit rings — centered on the emblem (upper ~62% of logo) */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: "38%",
+                perspective: "160px",
+              }}
+            >
+              {/* Ring A — equatorial */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  inset: "6%",
+                  border: "2px solid rgba(90,200,255,0.70)",
+                  animation: "globe-orbit-a 4.5s linear infinite",
+                  transformOrigin: "center center",
+                }}
+              />
+              {/* Ring B — tilted +55° */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  inset: "12%",
+                  border: "1.5px solid rgba(50,160,240,0.50)",
+                  animation: "globe-orbit-b 6.5s linear infinite reverse",
+                  transformOrigin: "center center",
+                }}
+              />
+              {/* Ring C — tilted −40° */}
+              <div
+                className="absolute rounded-full"
+                style={{
+                  inset: "18%",
+                  border: "1px solid rgba(120,210,255,0.35)",
+                  animation: "globe-orbit-c 9s linear infinite",
+                  transformOrigin: "center center",
+                }}
+              />
+            </div>
           </button>
 
           <nav className="hidden md:flex items-center gap-7">

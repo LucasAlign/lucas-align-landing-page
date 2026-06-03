@@ -118,3 +118,17 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 }
+
+/* Globe-orbit animation for the logo rings */
+@keyframes globe-orbit-a {
+  from { transform: rotateX(68deg) rotateY(0deg); }
+  to   { transform: rotateX(68deg) rotateY(360deg); }
+}
+@keyframes globe-orbit-b {
+  from { transform: rotateX(68deg) rotateZ(55deg) rotateY(0deg); }
+  to   { transform: rotateX(68deg) rotateZ(55deg) rotateY(360deg); }
+}
+@keyframes globe-orbit-c {
+  from { transform: rotateX(68deg) rotateZ(-40deg) rotateY(0deg); }
+  to   { transform: rotateX(68deg) rotateZ(-40deg) rotateY(360deg); }
+}
