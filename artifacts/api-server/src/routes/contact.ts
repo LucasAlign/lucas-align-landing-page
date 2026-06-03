@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { db, contactSubmissionsTable } from "@workspace/db";
 import { CreateContactBody } from "@workspace/api-zod";
+import { sendContactNotification } from "../lib/email";
 
 const router: IRouter = Router();
 
@@ -17,6 +18,11 @@ router.post("/contact", async (req, res): Promise<void> => {
     .returning();
 
   req.log.info({ id: submission.id, source: submission.source }, "Contact submission saved");
+
+  sendContactNotification(submission).catch((err) => {
+    req.log.error({ err }, "Failed to send contact notification email");
+  });
+
   res.status(201).json(submission);
 });
 
