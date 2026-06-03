@@ -129,7 +129,6 @@ export default function Home() {
           opacity: 0.75,
         }}
       />
-
       {/* Top bar — logo on left, nav on right. Scrolls naturally with the page. */}
       <div className="flex items-start justify-between w-full pointer-events-none">
 
@@ -261,10 +260,9 @@ export default function Home() {
         )}
       </header>
       </div>
-
       <main>
         <section className="relative pt-44 pb-18 md:pt-56 md:pb-24 overflow-hidden bg-transparent">
-          <div className="absolute inset-0 bg-white/30" />
+          <div className="absolute inset-0 bg-white/30 opacity-[0]" />
           <div className="absolute left-0 right-0 bottom-0 h-px bg-[#d8d1c4]" />
 
           <div className="relative z-10 container mx-auto px-5 sm:px-6 max-w-6xl">
@@ -468,7 +466,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
       <Dialog open={contactOpen} onOpenChange={(open) => { setContactOpen(open); if (!open) setSubmitted(false); }}>
         <DialogContent className="max-h-[92dvh] overflow-y-auto rounded-[1.5rem] border-[#d8d1c4] bg-[#f7f5f0] p-6 shadow-2xl sm:max-w-xl">
           {submitted ? (
@@ -569,7 +566,6 @@ export default function Home() {
           )}
         </DialogContent>
       </Dialog>
-
       <footer className="bg-[#f7f5f0]/90 border-t border-[#d8d1c4] py-10">
         <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center md:items-start">
