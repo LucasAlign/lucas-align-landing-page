@@ -20,8 +20,7 @@ import {
   UsersRound,
   X,
 } from "lucide-react";
-import { type FormEvent, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import aboutImage from "@assets/lucas-brothers-about.webp";
 import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
@@ -75,12 +74,17 @@ export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const createContact = useCreateContact();
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const el = scrollAreaRef.current;
+    if (!el) return;
+    const handleScroll = () => setIsScrolled(el.scrollTop > 20);
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToTop = () => scrollAreaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -119,11 +123,11 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-transparent text-[#16243a] font-sans selection:bg-[#dbe8f0] selection:text-[#16243a] flex flex-col">
-      {/* Fixed beach background */}
+    <div className="h-[100dvh] overflow-hidden text-[#16243a] font-sans selection:bg-[#dbe8f0] selection:text-[#16243a] flex flex-col relative">
+      {/* Beach background — absolute within the fixed-size outer container */}
       <div
         aria-hidden="true"
-        className="fixed inset-0 -z-10"
+        className="absolute inset-0 -z-10"
         style={{
           backgroundImage: `url(${bgBeach})`,
           backgroundSize: "cover",
@@ -133,87 +137,74 @@ export default function Home() {
           opacity: 0.75,
         }}
       />
-      {/* Logo rendered into document.body via portal — zero ancestor interference */}
-      {createPortal(
-        <button
-          type="button"
-          aria-label="Lucas Align home"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: "1rem",
-            zIndex: 9999,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            background: "none",
-            border: "none",
-            padding: 0,
-            cursor: "pointer",
-          }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          {/* Emblem only — clip-path trims PNG text, preserves 3D for depth */}
-          <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
-            <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
-              <div
-                style={{
-                  position: "relative",
-                  transformStyle: "preserve-3d",
-                  animation: "logo-globe-spin 8s linear infinite",
-                  transformOrigin: "center 4.5rem",
-                }}
-              >
-                {([-16, -12, -8, -4] as const).map((z, i) => (
-                  <img
-                    key={z}
-                    src={logoFull}
-                    alt=""
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      height: "18rem",
-                      width: "auto",
-                      transform: `translateZ(${z}px)`,
-                      filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
-                    }}
-                  />
-                ))}
+
+      {/* Logo — absolute within the outer container (which never scrolls) */}
+      <button
+        type="button"
+        aria-label="Lucas Align home"
+        className="absolute top-0 left-4 z-[60] flex flex-col items-center"
+        style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+        onClick={scrollToTop}
+      >
+        <div style={{ position: "relative", height: "11rem", clipPath: "inset(0 0 0 0)" }}>
+          <div style={{ height: "11rem", perspective: "700px", perspectiveOrigin: "center 4.5rem" }}>
+            <div
+              style={{
+                position: "relative",
+                transformStyle: "preserve-3d",
+                animation: "logo-globe-spin 8s linear infinite",
+                transformOrigin: "center 4.5rem",
+              }}
+            >
+              {([-16, -12, -8, -4] as const).map((z, i) => (
                 <img
+                  key={z}
                   src={logoFull}
                   alt=""
                   style={{
-                    position: "relative",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
                     height: "18rem",
                     width: "auto",
-                    display: "block",
-                    transform: "translateZ(0px)",
-                    filter: "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
+                    transform: `translateZ(${z}px)`,
+                    filter: `brightness(${0.06 + i * 0.07}) saturate(3)`,
                   }}
                 />
-              </div>
+              ))}
+              <img
+                src={logoFull}
+                alt=""
+                style={{
+                  position: "relative",
+                  height: "18rem",
+                  width: "auto",
+                  display: "block",
+                  transform: "translateZ(0px)",
+                  filter: "drop-shadow(0 0 10px rgba(50,180,255,0.85)) drop-shadow(0 0 4px rgba(100,220,255,0.6))",
+                }}
+              />
             </div>
           </div>
-          <span
-            style={{
-              fontFamily: "Inter, sans-serif",
-              fontWeight: 800,
-              fontSize: "1.15rem",
-              letterSpacing: "0.22em",
-              color: "#17385f",
-              textTransform: "uppercase",
-              marginTop: "0.1rem",
-            }}
-          >
-            LUCAS ALIGN
-          </span>
-        </button>,
-        document.body
-      )}
+        </div>
+        <span
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontWeight: 800,
+            fontSize: "1.15rem",
+            letterSpacing: "0.22em",
+            color: "#17385f",
+            textTransform: "uppercase",
+            marginTop: "0.1rem",
+          }}
+        >
+          LUCAS ALIGN
+        </span>
+      </button>
 
+      {/* Header — sits in normal flow at the top; outer container never scrolls so it never moves */}
       <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        className={`w-full z-50 transition-all duration-300 flex-shrink-0 ${
           isScrolled
             ? "bg-[#f7f5f0]/92 backdrop-blur-md border-b border-[#d8d1c4] shadow-sm"
             : "bg-transparent"
@@ -281,7 +272,9 @@ export default function Home() {
         )}
       </header>
 
-      <main className="flex-1">
+      {/* Scrollable content area — scroll happens here, never on the outer container */}
+      <div ref={scrollAreaRef} className="flex-1 overflow-y-auto">
+      <main>
         <section className="relative pt-44 pb-18 md:pt-56 md:pb-24 overflow-hidden bg-transparent">
           <div className="absolute inset-0 bg-white/30" />
           <div className="absolute left-0 right-0 bottom-0 h-px bg-[#d8d1c4]" />
@@ -597,7 +590,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm font-semibold text-[#4f6074]">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-[#9b5c37] transition-colors">
+            <button onClick={scrollToTop} className="hover:text-[#9b5c37] transition-colors">
               Home
             </button>
             <button onClick={() => scrollTo("about")} className="hover:text-[#9b5c37] transition-colors">
@@ -617,6 +610,7 @@ export default function Home() {
           <div className="text-sm text-[#6c7884]">&copy; {new Date().getFullYear()} Lucas Align.</div>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
