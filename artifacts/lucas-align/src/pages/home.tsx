@@ -13,6 +13,7 @@ import {
   ClipboardList,
   GraduationCap,
   HandHeart,
+  LayoutDashboard,
   Layers3,
   Menu,
   MessageCircle,
@@ -32,18 +33,32 @@ const products = [
     title: "Wraparound",
     description:
       "A Care Communities platform designed to help churches, counties, advocates, team leads, and volunteers coordinate support for foster, adoptive, and kinship families. Includes scheduling, recurring tasks, role-based dashboards, training progress, reminders, family records, and care team coordination.",
+    href: "/wraparound",
+    learnMore: "View Wraparound",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "KeyFam Dashboard",
+    description:
+      "The central hub for Keystone Family Alliance staff — bringing together the tools, resources, and information employees use every day into one simple platform. Replaces scattered bookmarks, emails, and shared drives with a single streamlined experience built around how KFA actually operates.",
+    href: "/dashboard",
+    learnMore: "View KeyFam Dashboard",
   },
   {
     icon: PenLine,
     title: "GrantFlow",
     description:
       "A lightweight grant-writing assistant designed to help nonprofits organize boilerplate answers, reuse organization details, and respond to grant applications with more consistency and less repetitive work.",
+    href: null,
+    learnMore: null,
   },
   {
     icon: GraduationCap,
     title: "Homeschool Dashboard",
     description:
       "A clean family dashboard for homeschooling workflows. Designed to help parents organize curriculum, assignments, student progress, daily expectations, uploaded PDFs, AI-assisted summaries, and completion tracking in one calm space.",
+    href: null,
+    learnMore: null,
   },
 ];
 
@@ -82,10 +97,6 @@ export default function Home() {
       el.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
-  };
-
-  const goToWraparound = () => {
-    window.location.href = "/wraparound";
   };
 
   const startConversation = () => {
@@ -373,7 +384,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-5">
+            <div className="grid lg:grid-cols-2 gap-5">
               {products.map((product) => (
                 <article key={product.title} className="rounded-[1.5rem] border border-[#dce1e6] bg-[#f8faf9] p-6 shadow-sm">
                   <div className="w-12 h-12 rounded-2xl bg-[#e7efe9] text-[#17385f] flex items-center justify-center mb-6">
@@ -381,13 +392,13 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-bold text-[#16243a] mb-3">{product.title}</h3>
                   <p className="text-[#516174] leading-relaxed">{product.description}</p>
-                  {product.title === "Wraparound" && (
+                  {product.href && product.learnMore && (
                     <Button
                       variant="outline"
                       className="mt-6 border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6] rounded-full"
-                      onClick={goToWraparound}
+                      onClick={() => { window.location.href = product.href!; }}
                     >
-                      View Wraparound
+                      {product.learnMore}
                     </Button>
                   )}
                 </article>

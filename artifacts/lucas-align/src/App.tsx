@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Wraparound from "@/pages/wraparound";
+import KeyFamDashboard from "@/pages/dashboard";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/wraparound" component={Wraparound} />
+      <Route path="/dashboard" component={KeyFamDashboard} />
       <Route component={NotFound} />
     </Switch>
   );
