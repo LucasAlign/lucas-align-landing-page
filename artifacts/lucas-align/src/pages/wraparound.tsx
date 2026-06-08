@@ -191,6 +191,9 @@ export default function HomePage() {
             <button onClick={() => scrollTo("features")} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
               Features
             </button>
+            <button onClick={() => { window.location.href = "/wraparound/pricing"; }} className="text-sm font-semibold text-[#43554e] transition-colors hover:text-[#1f6f5b]">
+              Pricing
+            </button>
             <Button className="h-10 rounded-md bg-[#1f6f5b] px-5 text-white hover:bg-[#185846]" onClick={openContact}>
               Get in Touch
             </Button>
@@ -218,6 +221,9 @@ export default function HomePage() {
                 {label}
               </button>
             ))}
+            <button onClick={() => { window.location.href = "/wraparound/pricing"; }} className="border-b border-[#e4ebe5] py-3 text-left font-semibold text-[#263a33]">
+              Pricing
+            </button>
             <Button className="mt-2 h-11 rounded-md bg-[#1f6f5b] text-white hover:bg-[#185846]" onClick={openContact}>
               Get in Touch
             </Button>
