@@ -341,16 +341,6 @@ function TierCard({ tier, onCta }: { tier: typeof tiers[0]; onCta: (interest: st
       whileHover={{ transform: tier.featured ? "translateY(-10px)" : "translateY(-3px)", boxShadow: tier.featured ? "0 20px 48px rgba(46,82,71,0.25)" : "0 12px 32px rgba(46,82,71,0.1)" }}
       style={cardStyle}
     >
-      {tier.featured && (
-        <div style={{
-          position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)",
-          background: GOLD, color: "#fff", fontSize: "0.7rem", fontWeight: 500,
-          letterSpacing: "0.05em", textTransform: "uppercase", padding: "0.3rem 0.9rem",
-          borderRadius: 100, whiteSpace: "nowrap",
-        }}>
-          Most popular
-        </div>
-      )}
       <div style={nameStyle}>{tier.name}</div>
       <div style={taglineStyle}>{tier.tagline}</div>
 
