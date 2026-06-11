@@ -13,7 +13,6 @@ import {
   ClipboardList,
   GraduationCap,
   HandHeart,
-  LayoutDashboard,
   Layers3,
   Menu,
   MessageCircle,
@@ -35,14 +34,6 @@ const products = [
       "A Care Communities platform designed to help churches, counties, advocates, team leads, and volunteers coordinate support for foster, adoptive, and kinship families. Includes scheduling, recurring tasks, role-based dashboards, training progress, reminders, family records, and care team coordination.",
     href: "/wraparound",
     learnMore: "View Wraparound",
-  },
-  {
-    icon: LayoutDashboard,
-    title: "KeyFam Dashboard",
-    description:
-      "The central hub for Keystone Family Alliance staff — bringing together the tools, resources, and information employees use every day into one simple platform. Replaces scattered bookmarks, emails, and shared drives with a single streamlined experience built around how KFA actually operates.",
-    href: "/dashboard",
-    learnMore: "View KeyFam Dashboard",
   },
   {
     icon: PenLine,
