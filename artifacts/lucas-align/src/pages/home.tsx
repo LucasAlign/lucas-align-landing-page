@@ -26,14 +26,30 @@ import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
 import { useCreateContact } from "@workspace/api-client-react";
 
+const appBasePath = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
 const products = [
   {
     icon: HandHeart,
     title: "Wraparound",
+    logoSrc: "/wraparound/logo.png",
+    logoClassName: "h-14 w-auto max-w-[16rem]",
     description:
       "A Care Communities platform designed to help churches, counties, advocates, team leads, and volunteers coordinate support for foster, adoptive, and kinship families. Includes scheduling, recurring tasks, role-based dashboards, training progress, reminders, family records, and care team coordination.",
     href: "/wraparound",
     learnMore: "View Wraparound",
+  },
+  {
+    icon: Layers3,
+    logoSrc: "/arlo/icon.png",
+    logoClassName: "h-16 w-auto max-w-[7rem]",
+    title: "Arlo",
+    description:
+      "Arlo is a faith-grounded personal operating system -- a quiet partner that plans your day, keeps your word, and tells you the truth.",
+    href: `${appBasePath}arlo/index.html`,
+    learnMore: "View Arlo",
   },
   {
     icon: PenLine,
@@ -377,16 +393,36 @@ export default function Home() {
 
             <div className="grid lg:grid-cols-2 gap-5">
               {products.map((product) => (
-                <article key={product.title} className="rounded-[1.5rem] border border-[#dce1e6] bg-[#f8faf9] p-6 shadow-sm">
-                  <div className="w-12 h-12 rounded-2xl bg-[#e7efe9] text-[#17385f] flex items-center justify-center mb-6">
-                    <product.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#16243a] mb-3">{product.title}</h3>
-                  <p className="text-[#516174] leading-relaxed">{product.description}</p>
+                <article
+                  key={product.title}
+                  className={`rounded-[1.5rem] p-6 shadow-sm ${product.title === "Arlo" ? "border border-[#7a4e2c] bg-[#2e160b] shadow-[0_18px_45px_rgba(26,14,8,0.25)]" : "border border-[#dce1e6] bg-[#f8faf9]"}`}
+                  style={product.title === "Arlo" ? {
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(26,14,8,0.42), rgba(46,22,11,0.58)), url(/arlo/woodgrain.png)",
+                    backgroundColor: "#2e160b",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  } : undefined}
+                >
+                  {"logoSrc" in product && product.logoSrc ? (
+                    <div className="h-20 flex items-center justify-start mb-5">
+                      <img
+                        src={product.logoSrc}
+                        alt=""
+                        className={`object-contain ${"logoClassName" in product ? product.logoClassName : "h-16 w-auto max-w-[10rem]"}`}
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-2xl bg-[#e7efe9] text-[#17385f] flex items-center justify-center mb-6">
+                      <product.icon className="w-6 h-6" />
+                    </div>
+                  )}
+                  <h3 className={`text-2xl font-bold mb-3 ${product.title === "Arlo" ? "text-[#f4ead0]" : "text-[#16243a]"}`}>{product.title}</h3>
+                  <p className={`leading-relaxed ${product.title === "Arlo" ? "text-[#d9cba6]" : "text-[#516174]"}`}>{product.description}</p>
                   {product.href && product.learnMore && (
                     <Button
                       variant="outline"
-                      className="mt-6 border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6] rounded-full"
+                      className={`mt-6 rounded-full ${product.title === "Arlo" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
                       onClick={() => { window.location.href = product.href!; }}
                     >
                       {product.learnMore}
