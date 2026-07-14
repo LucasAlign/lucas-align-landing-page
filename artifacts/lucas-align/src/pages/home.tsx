@@ -43,13 +43,13 @@ const products = [
   },
   {
     icon: Layers3,
-    logoSrc: "/arlo/icon.png",
+    logoSrc: "/steward/icon.png",
     logoClassName: "h-16 w-auto max-w-[7rem]",
-    title: "Arlo",
+    title: "Steward",
     description:
-      "Arlo is a faith-grounded personal operating system -- a quiet partner that plans your day, keeps your word, and tells you the truth.",
-    href: `${appBasePath}arlo/index.html`,
-    learnMore: "View Arlo",
+      "Steward is a faith-grounded personal operating system -- a quiet partner that plans your day, keeps your word, and tells you the truth.",
+    href: `${appBasePath}steward/index.html`,
+    learnMore: "View Steward",
   },
   {
     icon: PenLine,
@@ -395,10 +395,10 @@ export default function Home() {
               {products.map((product) => (
                 <article
                   key={product.title}
-                  className={`rounded-[1.5rem] p-6 shadow-sm ${product.title === "Arlo" ? "border border-[#7a4e2c] bg-[#2e160b] shadow-[0_18px_45px_rgba(26,14,8,0.25)]" : "border border-[#dce1e6] bg-[#f8faf9]"}`}
-                  style={product.title === "Arlo" ? {
+                  className={`rounded-[1.5rem] p-6 shadow-sm ${product.title === "Steward" ? "border border-[#7a4e2c] bg-[#2e160b] shadow-[0_18px_45px_rgba(26,14,8,0.25)]" : "border border-[#dce1e6] bg-[#f8faf9]"}`}
+                  style={product.title === "Steward" ? {
                     backgroundImage:
-                      "linear-gradient(180deg, rgba(26,14,8,0.42), rgba(46,22,11,0.58)), url(/arlo/woodgrain.png)",
+                      "linear-gradient(180deg, rgba(26,14,8,0.42), rgba(46,22,11,0.58)), url(/steward/woodgrain.png)",
                     backgroundColor: "#2e160b",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
@@ -417,12 +417,12 @@ export default function Home() {
                       <product.icon className="w-6 h-6" />
                     </div>
                   )}
-                  <h3 className={`text-2xl font-bold mb-3 ${product.title === "Arlo" ? "text-[#f4ead0]" : "text-[#16243a]"}`}>{product.title}</h3>
-                  <p className={`leading-relaxed ${product.title === "Arlo" ? "text-[#d9cba6]" : "text-[#516174]"}`}>{product.description}</p>
+                  <h3 className={`text-2xl font-bold mb-3 ${product.title === "Steward" ? "text-[#f4ead0]" : "text-[#16243a]"}`}>{product.title}</h3>
+                  <p className={`leading-relaxed ${product.title === "Steward" ? "text-[#d9cba6]" : "text-[#516174]"}`}>{product.description}</p>
                   {product.href && product.learnMore && (
                     <Button
                       variant="outline"
-                      className={`mt-6 rounded-full ${product.title === "Arlo" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
+                      className={`mt-6 rounded-full ${product.title === "Steward" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
                       onClick={() => { window.location.href = product.href!; }}
                     >
                       {product.learnMore}
