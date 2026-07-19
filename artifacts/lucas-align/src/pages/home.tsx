@@ -215,7 +215,7 @@ export default function Home() {
         </button>
 
         {/* Nav — always transparent background */}
-        <header className="bg-transparent pointer-events-auto">
+        <header className="relative bg-transparent pointer-events-auto">
         <div className="container mx-auto px-5 sm:px-6 max-w-6xl flex items-center justify-end h-24">
 
           <nav className="hidden md:flex items-center gap-7">
@@ -251,7 +251,7 @@ export default function Home() {
         </div>
 
         {mobileMenuOpen && (
-          <div className="absolute top-full left-0 w-full bg-[#f7f5f0]/95 backdrop-blur-md border-b border-[#d8d1c4] shadow-lg py-4 px-6 flex flex-col gap-4 md:hidden">
+          <div className="fixed left-0 right-0 top-24 z-50 w-full bg-[#f7f5f0]/95 backdrop-blur-md border-b border-[#d8d1c4] shadow-lg py-4 px-6 flex flex-col gap-4 md:hidden">
             <button onClick={() => scrollTo("about")} className="text-left text-base font-semibold text-[#26384d] py-2 border-b border-[#d8d1c4]">
               About
             </button>
@@ -627,6 +627,12 @@ export default function Home() {
             <button onClick={() => scrollTo("serve")} className="hover:text-[#9b5c37] transition-colors">
               Who we serve
             </button>
+            <button onClick={startConversation} className="hover:text-[#9b5c37] transition-colors">
+              Contact
+            </button>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-[#9b5c37] transition-colors">
+              Support
+            </a>
           </div>
 
           <div className="text-sm text-[#6c7884]">&copy; {new Date().getFullYear()} Lucas Align.</div>
