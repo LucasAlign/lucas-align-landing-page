@@ -9,14 +9,17 @@ import {
 } from "@/components/ui/dialog";
 import {
   ArrowRight,
-  CheckCircle2,
   ClipboardList,
+  Gem,
   GraduationCap,
   HandHeart,
+  Heart,
   Layers3,
   Menu,
   MessageCircle,
+  Mountain,
   PenLine,
+  Target,
   UsersRound,
   X,
 } from "lucide-react";
@@ -69,13 +72,37 @@ const products = [
   },
 ];
 
-const philosophy = [
-  "Build around the actual workflow",
-  "Keep tools simple and focused",
-  "Reduce duplicate data entry",
-  "Make dashboards clear by role",
-  "Avoid unnecessary SaaS complexity",
-  "Support people-centered work with practical systems",
+const coreValues = [
+  {
+    icon: Heart,
+    title: "Steward Well",
+    description:
+      "Everything entrusted to us deserves faithful care. We steward our time, relationships, resources, technology, and the trust others place in us.",
+  },
+  {
+    icon: Target,
+    title: "Solve What Matters",
+    description:
+      "We build solutions to real problems. If it doesn't create meaningful value, we don't build it.",
+  },
+  {
+    icon: Gem,
+    title: "Pursue Excellence",
+    description:
+      "Quality communicates respect. We sweat the details because the people we serve deserve our best.",
+  },
+  {
+    icon: UsersRound,
+    title: "Serve People First",
+    description:
+      "Technology exists to serve people, not the other way around. Success is measured by the impact our customers create.",
+  },
+  {
+    icon: Mountain,
+    title: "Build for the Long Term",
+    description:
+      "Trust compounds. We choose integrity over shortcuts and long-term value over short-term wins.",
+  },
 ];
 
 const audiences = [
@@ -225,8 +252,8 @@ export default function Home() {
             <button onClick={() => scrollTo("products")} className="text-sm font-semibold text-[#4f6074] hover:text-[#9b5c37] transition-colors">
               Products
             </button>
-            <button onClick={() => scrollTo("philosophy")} className="text-sm font-semibold text-[#4f6074] hover:text-[#9b5c37] transition-colors">
-              Philosophy
+            <button onClick={() => scrollTo("values")} className="text-sm font-semibold text-[#4f6074] hover:text-[#9b5c37] transition-colors">
+              Core Values
             </button>
             <button onClick={() => scrollTo("serve")} className="text-sm font-semibold text-[#4f6074] hover:text-[#9b5c37] transition-colors">
               Who we serve
@@ -258,8 +285,8 @@ export default function Home() {
             <button onClick={() => scrollTo("products")} className="text-left text-base font-semibold text-[#26384d] py-2 border-b border-[#d8d1c4]">
               Products
             </button>
-            <button onClick={() => scrollTo("philosophy")} className="text-left text-base font-semibold text-[#26384d] py-2 border-b border-[#d8d1c4]">
-              Philosophy
+            <button onClick={() => scrollTo("values")} className="text-left text-base font-semibold text-[#26384d] py-2 border-b border-[#d8d1c4]">
+              Core Values
             </button>
             <button onClick={() => scrollTo("serve")} className="text-left text-base font-semibold text-[#26384d] py-2 border-b border-[#d8d1c4]">
               Who we serve
@@ -279,76 +306,10 @@ export default function Home() {
       </header>
       </div>
       <main>
-        <section className="relative pt-44 pb-18 md:pt-56 md:pb-24 overflow-hidden bg-transparent">
-          <div className="absolute inset-0 bg-white/30 opacity-[0]" />
+        <section id="about" className="relative pt-44 pb-20 md:pt-56 md:pb-28 overflow-hidden bg-[#f7f5f0]/55">
           <div className="absolute left-0 right-0 bottom-0 h-px bg-[#d8d1c4]" />
 
           <div className="relative z-10 container mx-auto px-5 sm:px-6 max-w-6xl">
-            <div className="grid lg:grid-cols-[1fr_0.82fr] gap-12 lg:gap-16 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55 }}
-                className="max-w-3xl"
-              >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 border border-[#d8d1c4] text-[#8a5534] text-xs font-bold uppercase tracking-[0.14em] mb-7">
-                  <Layers3 className="w-3.5 h-3.5" />
-                  <span>Practical technology for mission-driven work</span>
-                </div>
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#16243a] leading-[1.05] mb-6">
-                  Software built around the mission, not the other way around.
-                </h1>
-                <p className="text-lg md:text-xl text-[#516174] leading-relaxed mb-8 max-w-2xl">
-                  Lucas Align builds simple, focused software for nonprofits, ministries, and care-centered organizations that need better tools without unnecessary complexity.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    className="h-12 px-7 text-base bg-[#17385f] hover:bg-[#102a48] text-white rounded-full shadow-lg shadow-[#17385f]/15"
-                    onClick={() => scrollTo("products")}
-                  >
-                    View our products
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-12 px-7 text-base border-[#aeb9c4] bg-white/55 text-[#17385f] hover:bg-white rounded-full"
-                    onClick={startConversation}
-                  >
-                    Start a conversation
-                  </Button>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.55, delay: 0.12 }}
-                className="rounded-[1.75rem] border border-[#d8d1c4] bg-white/72 p-5 shadow-2xl shadow-[#29415c]/10"
-              >
-                <div className="rounded-[1.35rem] bg-[#16243a] text-white p-6 sm:p-8">
-                  <p className="text-sm uppercase tracking-[0.18em] text-[#d9b98d] font-bold mb-5">Why Lucas Align exists</p>
-                  <p className="text-2xl sm:text-3xl font-semibold leading-tight mb-8">
-                    Many good teams are doing meaningful work through software that only kind of fits.
-                  </p>
-                  <div className="space-y-3">
-                    {["SaaS tools", "Spreadsheets", "CRMs", "Forms", "Calendars", "Workarounds"].map((item) => (
-                      <div key={item} className="flex items-center gap-3 rounded-2xl bg-white/8 border border-white/10 px-4 py-3">
-                        <CheckCircle2 className="w-5 h-5 text-[#9cc8b7] flex-shrink-0" />
-                        <span className="text-sm sm:text-base font-medium">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-7 text-sm sm:text-base leading-relaxed text-[#d8e1e8]">
-                    We ask what would happen if the tool fit the work from the start, without adding another bloated system to manage.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        <section id="about" className="py-20 md:py-28 bg-[#f7f5f0]/55">
-          <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
             <div className="grid lg:grid-cols-[0.94fr_1.06fr] gap-12 lg:gap-16 items-center">
               <div className="relative">
                 <img
@@ -362,18 +323,77 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9b5c37] mb-4">About Lucas Align</p>
+                <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9b5c37] mb-4">Who We Are</p>
                 <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#16243a] mb-6">
-                  Solving problems is our something.
+                  We're a stewardship company that happens to build software.
                 </h2>
                 <div className="space-y-5 text-lg text-[#516174] leading-relaxed">
                   <p>
-                    We have seen firsthand how much time nonprofits lose to disconnected systems, clunky workflows, and software that almost fits but never quite does. Lucas Align was created to build practical, task-specific technology for organizations that serve people, families, churches, and communities.
+                    We exist to remove friction so people and organizations can focus on what matters most. Software is not our mission. People are.
                   </p>
                   <p>
-                    This is a for-profit company with a ministry-minded purpose: to support and strengthen the work of nonprofits by building tools that reduce friction, improve coordination, and make daily operations clearer.
+                    This is a for-profit company with a ministry-minded purpose: to support and strengthen the work of nonprofits, ministries, and mission-driven teams by building tools that reduce friction and make daily operations clearer.
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative py-20 md:py-28 overflow-hidden bg-transparent">
+          <div className="absolute left-0 right-0 bottom-0 h-px bg-[#d8d1c4]" />
+
+          <div className="relative z-10 container mx-auto px-5 sm:px-6 max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              className="max-w-3xl"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 border border-[#d8d1c4] text-[#8a5534] text-xs font-bold uppercase tracking-[0.14em] mb-7">
+                <Layers3 className="w-3.5 h-3.5" />
+                <span>Practical technology for mission-driven work</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[#16243a] leading-[1.05] mb-6">
+                Software built around the mission, not the other way around.
+              </h1>
+              <p className="text-lg md:text-xl text-[#516174] leading-relaxed mb-8 max-w-2xl">
+                Lucas Align builds simple, focused software for nonprofits, ministries, and care-centered organizations that need better tools without unnecessary complexity.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  className="h-12 px-7 text-base bg-[#17385f] hover:bg-[#102a48] text-white rounded-full shadow-lg shadow-[#17385f]/15"
+                  onClick={() => scrollTo("products")}
+                >
+                  View our products
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-12 px-7 text-base border-[#aeb9c4] bg-white/55 text-[#17385f] hover:bg-white rounded-full"
+                  onClick={startConversation}
+                >
+                  Start a conversation
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="py-14 md:py-16 bg-[#16243a]/95 text-white">
+          <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9b98d] mb-3">Our Mission</p>
+                <p className="text-lg sm:text-xl font-semibold leading-relaxed">
+                  To build technology that helps people faithfully steward what has been entrusted to them.
+                </p>
+              </div>
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-7">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9b98d] mb-3">Our Vision</p>
+                <p className="text-lg sm:text-xl font-semibold leading-relaxed">
+                  A world where technology quietly empowers people and organizations to accomplish their mission.
+                </p>
               </div>
             </div>
           </div>
@@ -434,28 +454,33 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="philosophy" className="py-20 md:py-28 bg-[#eef3f6]/55">
+        <section id="values" className="py-20 md:py-28 bg-[#eef3f6]/55">
           <div className="container mx-auto px-5 sm:px-6 max-w-6xl">
-            <div className="grid lg:grid-cols-[0.78fr_1.22fr] gap-12 items-start">
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9b5c37] mb-4">Philosophy</p>
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#16243a] mb-6">
-                  Less bloat. Better fit.
-                </h2>
-                <p className="text-lg text-[#516174] leading-relaxed">
-                  We are not trying to replace ministry or nonprofit work. We are trying to remove friction, solve operational problems, and build tools that help good organizations serve people better.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {philosophy.map((point) => (
-                  <div key={point} className="flex gap-3 rounded-[1.25rem] bg-white border border-[#dce1e6] p-5 shadow-sm">
-                    <CheckCircle2 className="mt-0.5 w-5 h-5 text-[#4c8b73] flex-shrink-0" />
-                    <p className="font-semibold leading-relaxed text-[#26384d]">{point}</p>
-                  </div>
-                ))}
-              </div>
+            <div className="max-w-3xl mb-12">
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9b5c37] mb-4">Core Values</p>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#16243a] mb-5">
+                Technology aligned with mission
+              </h2>
+              <p className="text-lg text-[#516174] leading-relaxed">
+                We are not trying to replace ministry or nonprofit work. We are trying to remove friction, create clarity, and empower people and organizations to faithfully focus on what matters most.
+              </p>
             </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {coreValues.map((value) => (
+                <div key={value.title} className="rounded-[1.25rem] bg-white border border-[#dce1e6] p-5 shadow-sm">
+                  <div className="w-11 h-11 rounded-2xl bg-[#e7efe9] text-[#17385f] flex items-center justify-center mb-4">
+                    <value.icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-[#16243a] mb-2">{value.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#516174]">{value.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-10 text-center text-lg sm:text-xl font-bold tracking-tight text-[#16243a]">
+              Steward Well. Build Simply. Serve People. Pursue Excellence. Finish Faithfully.
+            </p>
           </div>
         </section>
 
@@ -621,8 +646,8 @@ export default function Home() {
             <button onClick={() => scrollTo("products")} className="hover:text-[#9b5c37] transition-colors">
               Products
             </button>
-            <button onClick={() => scrollTo("philosophy")} className="hover:text-[#9b5c37] transition-colors">
-              Philosophy
+            <button onClick={() => scrollTo("values")} className="hover:text-[#9b5c37] transition-colors">
+              Core Values
             </button>
             <button onClick={() => scrollTo("serve")} className="hover:text-[#9b5c37] transition-colors">
               Who we serve
