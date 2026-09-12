@@ -77,9 +77,8 @@ const products = [
     logoClassName: "h-16 w-auto max-w-[12rem]",
     description:
       "A nationwide collaboration and networking platform for chambers and member organizations. Collab helps members connect, exchange referrals, market their businesses, use practical business tools, and support sponsor-funded revenue for participating organizations.",
-    href: "https://collab-network.witeyford.chatgpt.site/",
+    href: `${appBasePath}collab/`,
     learnMore: "Explore Collab",
-    external: true,
   },
 ];
 
@@ -437,11 +436,27 @@ export default function Home() {
                 >
                   {"logoSrc" in product && product.logoSrc ? (
                     <div className="h-20 flex items-center justify-start mb-5">
-                      <img
-                        src={product.logoSrc}
-                        alt=""
-                        className={`object-contain ${"logoClassName" in product ? product.logoClassName : "h-16 w-auto max-w-[10rem]"}`}
-                      />
+                      {product.href ? (
+                        <a
+                          href={product.href}
+                          target={"external" in product && product.external ? "_blank" : undefined}
+                          rel={"external" in product && product.external ? "noopener noreferrer" : undefined}
+                          aria-label={`Visit ${product.title}`}
+                          className="inline-flex rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#17385f] focus-visible:ring-offset-4"
+                        >
+                          <img
+                            src={product.logoSrc}
+                            alt={`${product.title} logo`}
+                            className={`object-contain ${"logoClassName" in product ? product.logoClassName : "h-16 w-auto max-w-[10rem]"}`}
+                          />
+                        </a>
+                      ) : (
+                        <img
+                          src={product.logoSrc}
+                          alt={`${product.title} logo`}
+                          className={`object-contain ${"logoClassName" in product ? product.logoClassName : "h-16 w-auto max-w-[10rem]"}`}
+                        />
+                      )}
                     </div>
                   ) : (
                     <div className="w-12 h-12 rounded-2xl bg-[#e7efe9] text-[#17385f] flex items-center justify-center mb-6">
