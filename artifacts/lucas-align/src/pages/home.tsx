@@ -70,6 +70,17 @@ const products = [
     href: null,
     learnMore: null,
   },
+  {
+    icon: UsersRound,
+    title: "Collab",
+    logoSrc: "/collab-logo.png",
+    logoClassName: "h-16 w-auto max-w-[12rem]",
+    description:
+      "A nationwide collaboration and networking platform for chambers and member organizations. Collab helps members connect, exchange referrals, market their businesses, use practical business tools, and support sponsor-funded revenue for participating organizations.",
+    href: "https://collab-network.witeyford.chatgpt.site/",
+    learnMore: "Explore Collab",
+    external: true,
+  },
 ];
 
 const coreValues = [
@@ -440,13 +451,25 @@ export default function Home() {
                   <h3 className={`text-2xl font-bold mb-3 ${product.title === "Steward" ? "text-[#f4ead0]" : "text-[#16243a]"}`}>{product.title}</h3>
                   <p className={`leading-relaxed ${product.title === "Steward" ? "text-[#d9cba6]" : "text-[#516174]"}`}>{product.description}</p>
                   {product.href && product.learnMore && (
-                    <Button
-                      variant="outline"
-                      className={`mt-6 rounded-full ${product.title === "Steward" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
-                      onClick={() => { window.location.href = product.href!; }}
-                    >
-                      {product.learnMore}
-                    </Button>
+                    "external" in product && product.external ? (
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="mt-6 rounded-full border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"
+                      >
+                        <a href={product.href} target="_blank" rel="noopener noreferrer">
+                          {product.learnMore}
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        className={`mt-6 rounded-full ${product.title === "Steward" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
+                        onClick={() => { window.location.href = product.href!; }}
+                      >
+                        {product.learnMore}
+                      </Button>
+                    )
                   )}
                 </article>
               ))}
