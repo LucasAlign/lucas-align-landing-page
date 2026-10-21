@@ -1,0 +1,1 @@
+- [Engage positioning](engage-positioning.md) — Engage is a standalone church-partnership CRM; Wraparound integration is optional, not a prerequisite.

@@ -23,7 +23,8 @@ import {
   UsersRound,
   X,
 } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { EngageIcon } from "@/components/engage-icon";
+import { type FormEvent, useEffect, useState } from "react";
 import aboutImage from "@assets/lucas-brothers-about.webp";
 import logoFull from "@assets/lucas-align-new-logo.png";
 import bgBeach from "@assets/image_1780508810059.png";
@@ -53,6 +54,14 @@ const products = [
       "Steward is a faith-grounded personal operating system -- a quiet partner that plans your day, keeps your word, and tells you the truth.",
     href: `${appBasePath}steward/index.html`,
     learnMore: "View Steward",
+  },
+  {
+    icon: EngageIcon,
+    title: "Engage",
+    description:
+      "A simple yet powerful church engagement CRM for foster-care and family-support ministries. Organize church relationships, conversations, partnerships, and next steps county by county. Works as a standalone tool, with optional seamless two-way Wraparound integration.",
+    href: `${appBasePath}engage`,
+    learnMore: "Explore Engage",
   },
   {
     icon: PenLine,
@@ -132,6 +141,19 @@ export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const createContact = useCreateContact();
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (id) document.getElementById(id)?.scrollIntoView({ block: "start" });
+    };
+    const frame = requestAnimationFrame(scrollToHash);
+    window.addEventListener("hashchange", scrollToHash);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
