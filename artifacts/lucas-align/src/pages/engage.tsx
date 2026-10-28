@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Link } from "wouter";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeftRight,
@@ -270,9 +269,9 @@ export default function Engage() {
               <p className="mb-8 text-lg leading-relaxed text-[#d8e1e8]">
                 No duplicate entry. No conflicting lists. And if you never use Wraparound, Engage is complete without it.
               </p>
-              <Link href="/wraparound" className="inline-flex h-11 items-center rounded-full bg-[#d9b98d] px-6 font-medium text-[#16243a] transition-colors hover:bg-[#cda878] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#16243a]">
+              <a href={`${appBasePath}wraparound`} className="inline-flex h-11 items-center rounded-full bg-[#d9b98d] px-6 font-medium text-[#16243a] transition-colors hover:bg-[#cda878] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#16243a]">
                 About Wraparound
-              </Link>
+              </a>
             </motion.div>
             <motion.div {...fade(0.08)} className="min-w-0 rounded-[1.5rem] border border-white/10 bg-white/5 p-5 sm:p-7">
               <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-center sm:gap-4">
@@ -368,7 +367,7 @@ export default function Engage() {
           <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 font-semibold">
             <a href={mainSite("")} className={`rounded hover:text-[#9b5c37] ${ring}`}>Lucas Align home</a>
             <a href={mainSite("#products")} className={`rounded hover:text-[#9b5c37] ${ring}`}>Products</a>
-            <Link href="/wraparound" className={`rounded hover:text-[#9b5c37] ${ring}`}>Wraparound</Link>
+            <a href={`${appBasePath}wraparound`} className={`rounded hover:text-[#9b5c37] ${ring}`}>Wraparound</a>
             <a href={`${appBasePath}collab/`} className={`rounded hover:text-[#9b5c37] ${ring}`}>Collab</a>
           </nav>
         </div>

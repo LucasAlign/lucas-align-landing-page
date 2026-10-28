@@ -500,11 +500,11 @@ export default function Home() {
                       </Button>
                     ) : (
                       <Button
+                        asChild
                         variant="outline"
                         className={`mt-6 rounded-full ${product.title === "Steward" ? "border-[#d8aa3e] bg-[#d8aa3e] text-[#1a0e08] hover:bg-[#c89a34]" : "border-[#aeb9c4] bg-white text-[#17385f] hover:bg-[#eef3f6]"}`}
-                        onClick={() => { window.location.href = product.href!; }}
                       >
-                        {product.learnMore}
+                        <a href={product.href}>{product.learnMore}</a>
                       </Button>
                     )
                   )}
