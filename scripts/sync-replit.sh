@@ -14,7 +14,7 @@ fi
 
 git pull --ff-only origin main
 pnpm install --frozen-lockfile
-pnpm run build
+PORT="${PORT:-5173}" BASE_PATH="${BASE_PATH:-/}" pnpm run build
 
 echo "GitHub source is synced and builds successfully. Click Republish in Replit."
 echo "Database migrations are separate; this script does not change the database."
