@@ -1,6 +1,6 @@
 import { ReplitConnectors } from "@replit/connectors-sdk";
 
-const NOTIFY_TO = "Bryant@rivcolucasinc.com";
+const NOTIFY_TO = "admin@lucasalign.com";
 const NOTIFY_FROM = "notifications@lucasalign.com";
 
 export async function sendContactNotification(submission: {
