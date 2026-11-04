@@ -51,7 +51,7 @@ const products = [
     logoClassName: "h-16 w-auto max-w-[7rem]",
     title: "Steward",
     description:
-      "Steward is a faith-grounded personal operating system -- a quiet partner that plans your day, keeps your word, and tells you the truth.",
+      "Steward brings Scripture, family, work, and an AI accountability partner into a daily plan for men leading their home, work, and church.",
     href: `${appBasePath}steward/index.html`,
     learnMore: "View Steward",
   },
