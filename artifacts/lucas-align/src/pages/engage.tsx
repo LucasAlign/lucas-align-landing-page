@@ -13,6 +13,7 @@ import {
   Phone,
 } from "lucide-react";
 import { EngageIcon } from "@/components/engage-icon";
+import { EngageHero } from "@/components/engage-hero";
 import bgBeach from "@assets/image_1780508810059.png";
 
 const appBasePath = import.meta.env.BASE_URL.endsWith("/")
@@ -169,7 +170,7 @@ export default function Engage() {
         {/* Hero */}
         <section className="relative overflow-hidden bg-[#f7f5f0]/55 py-20 md:py-28">
           <div className="absolute inset-x-0 bottom-0 h-px bg-[#d8d1c4]" />
-          <div className="container relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="container relative mx-auto grid max-w-6xl items-center gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1fr] lg:gap-10">
             <motion.div {...(reduce ? {} : { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.55 } })}>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#d8d1c4] bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#8a5534]">
                 <EngageIcon className="h-4 w-4" />
@@ -193,15 +194,12 @@ export default function Engage() {
               </div>
             </motion.div>
 
-            {/* Network illustration */}
+            {/* Church directory and relationship illustration */}
             <motion.div
               {...(reduce ? {} : { initial: { opacity: 0, scale: 0.97 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 0.6, delay: 0.1 } })}
-              className="rounded-[1.75rem] border border-[#d8d1c4] bg-white/80 p-8 shadow-xl shadow-[#29415c]/8"
+              className="min-w-0"
             >
-              <EngageIcon className="mx-auto h-56 w-full max-w-56 text-[#17385f]" />
-              <p className="mt-4 text-center text-sm font-semibold text-[#516174]">
-                Churches, people and relationships, connected.
-              </p>
+              <EngageHero />
             </motion.div>
           </div>
         </section>
